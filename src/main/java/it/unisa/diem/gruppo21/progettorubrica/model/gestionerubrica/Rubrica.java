@@ -58,9 +58,9 @@ public class Rubrica {
      *      
      * @post Il contattoSelezionato è modificato in modo da essere uguale (contiene le stesse info) al contattoModificato.
      *
-     * @return il contatto modificato.
+     * @return true se il contatto è stato modficato con successo nella rubrica,altrimenti false
      */
-    public Contatto modificaContatto(Contatto contattoSelezionato, Contatto contattoModificato) {
+    public true modificaContatto(Contatto contattoSelezionato, Contatto contattoModificato) {
 
     }
 
