@@ -43,7 +43,7 @@ public class Rubrica {
      *
      * @return true se il contatto è stato inserito nella rubrica, altrimenti false.
      */
-    public Contatto inserisciContatto(Contatto nuovoContatto) {
+    public boolean inserisciContatto(Contatto nuovoContatto) {
 
     }
 
@@ -60,7 +60,7 @@ public class Rubrica {
      *
      * @return true se il contatto è stato modficato con successo nella rubrica,altrimenti false
      */
-    public true modificaContatto(Contatto contattoSelezionato, Contatto contattoModificato) {
+    public boolean modificaContatto(Contatto contattoSelezionato, Contatto contattoModificato) {
 
     }
 
