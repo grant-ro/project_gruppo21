@@ -9,6 +9,7 @@ package it.unisa.diem.gruppo21.progettorubrica.model.gestionerubrica;
 import java.io.IOExceptionn;
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
+import static gestionedati.GestorePersistenzaDati.*
 
 /**
  * @file Rubrica.java
@@ -33,6 +34,7 @@ public class Rubrica {
      * @post La rubrica non possiede alcun contatto.
      */
     public Rubrica() {
+        this.contatti = FXCollections.observableArrayList();
     }
 
     /**
@@ -43,7 +45,7 @@ public class Rubrica {
     * @return Un'ObservableList di oggetti `Contatto` contenente tutti i contatti della rubrica corrente.
     */
     public ObservableList<Contatto> getContatti(){
-
+        return contatti;
     }
     
     /**
@@ -62,9 +64,22 @@ public class Rubrica {
      *
      * @throws IllegalArgumentException se 'nuovoContatto' è null.
      */
-    public boolean inserisciContatto(Contatto nuovoContatto) 
-
-    /**
+    public boolean inserisciContatto(Contatto nuovoContatto) {
+        if (nuovoContatto == null) {
+            throw new IllegalArgumentException("Il contatto non può essere null.");
+        }
+        
+        // Aggiunge il contatto alla rubrica
+        boolean aggiunto = contatti.add(nuovoContatto);
+    
+        // Riordina la lista se è il contatto è stato inserito
+        if (aggiunto) {
+             contatti.sort(null);  // Riordina la lista usando l'ordine naturale definito in Contatto
+        }
+        return aggiunto;
+    }
+        
+     /**
      * @brief Modifica di un contatto esistente nella rubrica.
      * 
      * @param[in] contattoSelezionato è il contatto da modificare.
@@ -83,8 +98,23 @@ public class Rubrica {
      *
      * @throws IllegalArgumentException se 'contattoSelezionato' o 'contattoModificato' sono null.
      */
-    public boolean modificaContatto(Contatto contattoSelezionato, Contatto contattoModificato) 
+    public boolean modificaContatto(Contatto contattoSelezionato, Contatto contattoModificato){  
+        if (contattoSelezionato == null || contattoModificato == null) {
+           throw new IllegalArgumentException("Contatto selezionato o contatto modificato non possono essere null.");
+        }
+        
+        // Trova l'indice del contatto selezionato nella rubrica
+         int index = contatti.indexOf(contattoSelezionato);
 
+       
+        if (index == -1) {     //index=-1 se il contatto selezionato non esiste
+            return false; //Restituisce false se il contatto selezionato non esiste in rubrica
+        } else {
+              contatti.set(index, contattoModificato); // Sostituisce il contatto selezionato con quello modificato se il contatto selezionato esiste in rubrica
+              contatti.sort(null); // Riordina la lista usando l'ordine naturale definito in Contatto
+              return true;
+        }
+    }
     
     /**
      * @brief Elimina un contatto dalla rubrica.
@@ -105,6 +135,14 @@ public class Rubrica {
      * @throws IllegalArgumentException se 'contattoSelezionato' è null.
      */
     public boolean eliminaContatto(Contatto contattoSelezionato) {
+        if (contattoSelezionato == null) {
+            throw new IllegalArgumentException("Il contatto non può essere null.");
+        }
+    
+         // Verifica se il contatto esiste nella rubrica e lo rimuove
+        return contatti.remove(contattoSelezionato); //Restituisce true se il contatto esiste in rubrica,altrimenti false
+    }
+    
 
     /**
      *@brief Filtra la rubrica secondo una stringa di ricerca.
@@ -114,12 +152,32 @@ public class Rubrica {
      *@return Rubrica contenente tutti e soli i contatti della rubrica corrente che hanno campo nome e/o campo cognome che iniziano con la stringa di ricerca fornita;non è casesensitive.
      * 
      *@pre contattoSelezionato non deve essere null: contattoSelezionato!=null
+     *@pre La stringa di ricerca non può essere null:input!=null
+     *
      *@post La rubrica corrente non viene modificata. 
      *
      *
      *@throws IllegalArgumentException se 'input' è null. 
      */
-    public Rubrica ricercaContatti(String input)
+    public Rubrica ricercaContatti(String input) {
+        if (input == null) {
+            throw new IllegalArgumentException("La stringa di ricerca non può essere null.");
+        }
+        
+        //Crea una nuova rubrica che conterrà i risultati della ricerca
+        Rubrica rubricaRisultati = new Rubrica();
+
+        // Converte l'input in minuscolo per realizzare una ricerca ricerca case-insensitive
+        String inputLower = input.toLowerCase();
+
+        for (Contatto contatto : contatti) {
+            //Rende i campi cognome e nome in minuscolo per rendere la ricerca case-insensitive
+            //Verifica se nome o cognome iniziano con la stringa di ricerca
+            if (contatto.getNome().toLowerCase().startsWith(inputLower) || contatto.getCognome().toLowerCase();.startsWith(inputLower)) {
+                rubricaRisultati.inserisciContatto(contatto); 
+            }
+        }
+    }   
 
     /**
     * @brief Carica la rubrica in un file di persistenza predefinito.
@@ -141,7 +199,7 @@ public class Rubrica {
     * 
     */
     public  boolean caricaRubrica() throws IOException {
-
+            carica(this);
     }
         
     /**
@@ -162,42 +220,45 @@ public class Rubrica {
      */
     
      public void salvaRubrica() throws IOException {
+            salva(this);
      }
 
 
-/**
- * @brief Importa in rubrica contatti da un file locale.
- * 
- * @param[in] nomeFile Nome del file da cui importare i contatti in rubrica.
- * 
- * @pre nomeFile deve essere il nome di un file preesistente localmente.
- * @pre Il file di importazione deve essere accessibile.
- * @pre Il nome del file contiene un'estensione corretta: .csv. 
- 
- * @post I contatti dal file CSV sono aggiunti alla rubrica esistente.
- * 
- * @return true se tutti i contatti sono stati inseriti con successo, altrimenti false.
- *
- * @throws IOException se si verifica un errore durante l’importazione.
- */
-public boolean importaRubrica(String nomeFile) throws IOException{
-}
+    /**
+     * @brief Importa in rubrica contatti da un file locale.
+     * 
+     * @param[in] nomeFile Nome del file da cui importare i contatti in rubrica.
+     * 
+     * @pre nomeFile deve essere il nome di un file preesistente localmente.
+     * @pre Il file di importazione deve essere accessibile.
+     * @pre Il nome del file contiene un'estensione corretta: .csv. 
+     * 
+     * @post I contatti dal file CSV sono aggiunti alla rubrica esistente.
+     * 
+     * @return true se tutti i contatti sono stati inseriti con successo, altrimenti false.
+     *
+     * @throws IOException se si verifica un errore durante l’importazione.
+     */
+    public boolean importaRubrica(String nomeFile) throws IOException{
+        return (new OperatoreFile().leggi(nomeFile,this));
+    }
 
 
-/**
- * @brief Esporta la rubrica su un file locale.
- * 
- * @param[in] nomeFile Nome del file su cui esportare la rubrica.
- * 
- * @pre nomeFile deve essere un nome valido per la creazione di un file.
- * @pre Il nome del file contiene un'estensione corretta: .csv.  
- * @post Viene creato un nuovo file CSV, di nome nomeFile.
- * @post  Il file CSV creato contiene la rubrica aggiornata.
- *
- * @throws IOException se si verifica un errore durante l’esportazione.
- */
-public void esportaRubrica(String nomeFile) throws IOException {
-}
+    /**
+     * @brief Esporta la rubrica su un file locale.
+     * 
+     * @param[in] nomeFile Nome del file su cui esportare la rubrica.
+     * 
+     * @pre nomeFile deve essere un nome valido per la creazione di un file.
+     * @pre Il nome del file contiene un'estensione corretta: .csv.  
+     * @post Viene creato un nuovo file CSV, di nome nomeFile.
+     * @post  Il file CSV creato contiene la rubrica aggiornata.
+     *
+     * @throws IOException se si verifica un errore durante l’esportazione.
+     */
+    public void esportaRubrica(String nomeFile) throws IOException {
+         return (new OperatoreFile().scrivi(nomeFile,this));
+    }
 
     /**
     *@brief Fornisce una descrizione del contatto
@@ -218,8 +279,17 @@ public void esportaRubrica(String nomeFile) throws IOException {
     */
     @Override
     public String toString(){
+        StringBuffer sb = new StringBuffer();
     
+        //Scorro la rubrica e ottengo la stringa descittiva di ogni contatto di rubrica 
+        for (Contatto contatto : listaContatti) {
+            sb.append(contatto.toString()).append(";\n"); //Al termine di ogni contatto inserisco i separatori per la leggibilità
+        }
+            
+        return sb.toString();
     }
+
+}
 
 
 
