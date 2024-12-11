@@ -9,6 +9,13 @@ package it.unisa.diem.gruppo21.progettorubrica.model.gestionerubrica;
  *
  * @author granturco-roberta
  */
-public class ContattoNonValidoException {
-    
+
+/**@file ContattoNonValidoException
+ * @brief Questo file contiene la definizione di un'eccezione personalizzata controllata per segnalare errori di validità nei contatti.
+ * @class ContattoNonValidoException
+ * 
+ */
+
+
+public class ContattoNonValidoException extends Exception{
 }
