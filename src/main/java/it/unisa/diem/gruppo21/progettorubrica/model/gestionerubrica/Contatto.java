@@ -4,10 +4,10 @@ package it.unisa.diem.gruppo21.progettorubrica.model.gestionerubrica;
  *
  * @author granturco-roberta
  */
-
+import java.util.Objects;
 import java.util.List;
 import java.util.ArrayList;
-import static ControlliValidità.*
+import static it.unisa.diem.gruppo21.progettorubrica.model.gestionerubrica.ControlliValidità.*;
 
 
 
@@ -88,7 +88,7 @@ public class Contatto implements Comparable <Contatto> {
         }
 
         
-        if (controlloRiempimento(nome,cognome) {
+        if (controlloRiempimento(nome,cognome)) {
             throw new ContattoNonValidoException("Il nome e il cognome non possono essere vuoti.");
         }
 
@@ -96,7 +96,7 @@ public class Contatto implements Comparable <Contatto> {
             throw new ContattoNonValidoException("Il numero massimo di numeri di telefono è " + maxNumeri);
          }
         for (String numero : numeriTelefono) {
-            if (numero == null || numero.trim().isEmpty() || controlloNumero(numero) {
+            if (numero == null || numero.trim().isEmpty() || controlloNumero(numero)) {
                  throw new ContattoNonValidoException("Ogni numero di telefono deve essere una stringa numerica valida.");
             }
           }
@@ -146,8 +146,8 @@ public class Contatto implements Comparable <Contatto> {
         if (nome == null) {
             throw new IllegalArgumentException("Il nome non può essere null");
         }
-    .
-        if (controlloRiempimento(nome,this.cognome) {
+    
+        if (controlloRiempimento(nome,this.cognome)) {
             throw new ContattoNonValidoException("Nome e cognome non possono essere entrambi vuoti o composti solo da spazi bianchi");
         }
 
@@ -185,8 +185,8 @@ public class Contatto implements Comparable <Contatto> {
         if (cognome == null) {
             throw new IllegalArgumentException("Il cognome non può essere null");
         }
-    .
-        if (controlloRiempimento(cognome,this.nome) {
+    
+        if (controlloRiempimento(cognome,this.nome)) {
             throw new ContattoNonValidoException("Nome e cognome non possono essere entrambi vuoti o composti solo da spazi bianchi");
         }
 
@@ -223,7 +223,7 @@ public class Contatto implements Comparable <Contatto> {
             throw new ContattoNonValidoException("Il numero massimo di numeri di telefono è " + maxNumeri);
          }
         for (String numero : numeriTelefono) {
-            if (numero == null || numero.trim().isEmpty() || controlloNumero(numero) {
+            if (numero == null || numero.trim().isEmpty() || controlloNumero(numero)) {
                 throw new ContattoNonValidoException("Ogni numero di telefono deve essere una stringa numerica valida.");
             }
         }
@@ -237,7 +237,7 @@ public class Contatto implements Comparable <Contatto> {
      *
      */
     public List<String> getIndirizziEmail() {
-        return indirizziEmail
+        return indirizziEmail;
     }
 
     /**     
@@ -261,6 +261,7 @@ public class Contatto implements Comparable <Contatto> {
                 throw new ContattoNonValidoException("Ogni indirizzo email deve essere valido.");
             }
          this.indirizziEmail = indirizziEmail;   
+        }
     }
 
     /**
@@ -269,7 +270,7 @@ public class Contatto implements Comparable <Contatto> {
      * @return Il numero massimo di numeri di telefono consentiti per contatto.
      */
     public int getMaxNumeri(){
-        return maxNumeri;
+        return maxEmail;
     }
 
     /**
@@ -389,22 +390,23 @@ public class Contatto implements Comparable <Contatto> {
         }
 
     
-     /**
-     * @brief Calcola il codice hash per il contatto.
-     * 
-     * Questo metodo calcola un codice hash univoco per il contatto, utilizzando i seguenti attributi:
-     * - nome
-     * - cognome
-     * - numeri di telefono
-     * - indirizzi email
-     * 
-     * Il codice hash è calcolato utilizzando la combinazione dei codici hash dei vari campi.
-     * Se un attributo è null, il suo valore hash è trattato come 0.
-     * 
-     * @return Il codice hash del contatto, calcolato dai campi nome, cognome, numeri di telefono e indirizzi email.
-     */
-    @Override
-    public int hashCode() {
-       return Objects.hash(nome, cognome, numeriTelefono, indirizziEmail);
-    }
+        /**
+        * @brief Calcola il codice hash per il contatto.
+        * 
+        * Questo metodo calcola un codice hash univoco per il contatto, utilizzando i seguenti attributi:
+        * - nome
+        * - cognome
+        * - numeri di telefono
+        * - indirizzi email
+        * 
+        * Il codice hash è calcolato utilizzando la combinazione dei codici hash dei vari campi.
+        * Se un attributo è null, il suo valore hash è trattato come 0.
+        * 
+        * @return Il codice hash del contatto, calcolato dai campi nome, cognome, numeri di telefono e indirizzi email.
+         */
+        @Override
+        public int hashCode() {
+            return Objects.hash(nome, cognome, numeriTelefono, indirizziEmail);
+        }
+}
 

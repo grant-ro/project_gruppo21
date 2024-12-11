@@ -6,10 +6,11 @@ package it.unisa.diem.gruppo21.progettorubrica.model.gestionerubrica;
  * @author granturco-roberta
  */
 
-import java.io.IOExceptionn;
+import java.io.IOException;
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
-import static gestionedati.GestorePersistenzaDati.*
+import static it.unisa.diem.gruppo21.progettorubrica.model.gestionedati.GestorePersistenzaDati.*;
+import it.unisa.diem.gruppo21.progettorubrica.model.gestionedati.OperatoreFile;
 
 /**
  * @file Rubrica.java
@@ -173,10 +174,11 @@ public class Rubrica {
         for (Contatto contatto : contatti) {
             //Rende i campi cognome e nome in minuscolo per rendere la ricerca case-insensitive
             //Verifica se nome o cognome iniziano con la stringa di ricerca
-            if (contatto.getNome().toLowerCase().startsWith(inputLower) || contatto.getCognome().toLowerCase();.startsWith(inputLower)) {
+            if (contatto.getNome().toLowerCase().startsWith(inputLower) || contatto.getCognome().toLowerCase().startsWith(inputLower)) {
                 rubricaRisultati.inserisciContatto(contatto); 
             }
         }
+        return rubricaRisultati;
     }   
 
     /**
@@ -199,7 +201,7 @@ public class Rubrica {
     * 
     */
     public  boolean caricaRubrica() throws IOException {
-            carica(this);
+            return carica(this);
     }
         
     /**
@@ -257,7 +259,7 @@ public class Rubrica {
      * @throws IOException se si verifica un errore durante l’esportazione.
      */
     public void esportaRubrica(String nomeFile) throws IOException {
-         return (new OperatoreFile().scrivi(nomeFile,this));
+         new OperatoreFile().scrivi(nomeFile,this);
     }
 
     /**
@@ -282,7 +284,7 @@ public class Rubrica {
         StringBuffer sb = new StringBuffer();
     
         //Scorro la rubrica e ottengo la stringa descittiva di ogni contatto di rubrica 
-        for (Contatto contatto : listaContatti) {
+        for (Contatto contatto : contatti) {
             sb.append(contatto.toString()).append(";\n"); //Al termine di ogni contatto inserisco i separatori per la leggibilità
         }
             
