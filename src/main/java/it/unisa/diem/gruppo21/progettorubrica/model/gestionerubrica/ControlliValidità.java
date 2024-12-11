@@ -17,9 +17,10 @@ public class ControlliValidità {
      * @param[in] numero La stringa da validare.
      * @return true se numero è una stringa numerica, altrimenti false.
      *
+     * @pre La stringa numero non deve essere null.
      */
     public static boolean controlloNumero(String numero) {
-
+        return numero != null && numero.matches("\\d+");
     }
 
     /**
@@ -27,12 +28,11 @@ public class ControlliValidità {
      *
      * @param[in] a prima stringa per il controllo.
      * @param[in] b seconda stringa per il controllo.
-     * @return true se almeno una delle stringhe non è vuota, altrimenti false.
+     * @return true se almeno una delle stringhe non è vuota o composta da soli spazi vuoti, altrimenti false.
      *
-     *
-     * 
+     * @pre Le stringhe a e b non devono essere null.
      */
-    public static boolean controlloRiempimento(String a, String b) {
-        
-    }
+     public static boolean controlloRiempimento(String a, String b) {
+         return (a != null && !a.trim().isEmpty()) || (b != null && !b.trim().isEmpty());
+     }
 }
