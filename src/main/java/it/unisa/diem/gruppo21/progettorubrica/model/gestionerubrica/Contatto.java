@@ -7,6 +7,8 @@ package it.unisa.diem.gruppo21.progettorubrica.model.gestionerubrica;
 
 import java.util.List;
 import java.util.ArrayList;
+import static ControlliValidità.*
+
 
 
 /**
@@ -69,8 +71,8 @@ public class Contatto implements Comparable <Contatto> {
      * 
      * @throws ContattoNonValidoException se 'nome' e 'cognome' sono contemporaneamente vuoti o composti solo da spazi bianchi: nome.trim().isEmpty() && cognome.trim().isEmpty() 
      * @throws ContattoNonValidoException se la lista `numeriTelefono` contiene almeno un elemento che non è una stringa numerica (composta solo da cifre)
-     * @throws ContattoNonValidoException numeriTelefono.size() <= maxNumeri
-     * @throws ContattoNonValidoException indirizziEmail.size() <= maxEmail
+     * @throws ContattoNonValidoException numeriTelefono.size() > maxNumeri
+     * @throws ContattoNonValidoException indirizziEmail.size() > maxEmail
      * 
      * 
      * @throws IllegalArgumentException se nome == null
@@ -80,8 +82,40 @@ public class Contatto implements Comparable <Contatto> {
      * 
      */
     public Contatto(String nome, String cognome, List<String> numeriTelefono, List<String> indirizziEmail) throws ContattoNonValidoException {
+        
+        if (nome == null || cognome == null || numeriTelefono == null || indirizziEmail == null) {
+            throw new IllegalArgumentException("I parametri non devono essere null.");
+        }
 
+        
+        if (controlloRiempimento(nome,cognome) {
+            throw new ContattoNonValidoException("Il nome e il cognome non possono essere vuoti.");
+        }
+
+         if (numeriTelefono.size() > maxNumeri) {
+            throw new ContattoNonValidoException("Il numero massimo di numeri di telefono è " + maxNumeri);
+         }
+        for (String numero : numeriTelefono) {
+            if (numero == null || numero.trim().isEmpty() || controlloNumero(numero) {
+                 throw new ContattoNonValidoException("Ogni numero di telefono deve essere una stringa numerica valida.");
+            }
+          }
+
+        if (indirizziEmail.size() > maxEmail) {
+            throw new ContattoNonValidoException("Il numero massimo di indirizzi email è " + maxEmail);
+        }
+        for (String email : indirizziEmail) {
+            if (email == null || email.trim().isEmpty()) {
+                throw new ContattoNonValidoException("Ogni indirizzo email deve essere valido.");
+            }
+      }
+        this.nome = nome;
+        this.cognome = cognome;
+        this.numeriTelefono = numeriTelefono;
+        this.indirizziEmail = indirizziEmail;
     }
+
+    
 
     /**
      * @brief Restituisce il nome del contatto.
@@ -90,7 +124,7 @@ public class Contatto implements Comparable <Contatto> {
      *
      */
     public String getNome(){
-
+        return nome;
     }
  
     /**
@@ -108,8 +142,19 @@ public class Contatto implements Comparable <Contatto> {
      * @throws IllegalArgumentException se nome == null
      */
     public void setNome(String nome) throws ContattoNonValidoException{
+        // Verifica che il nome non sia null
+        if (nome == null) {
+            throw new IllegalArgumentException("Il nome non può essere null");
+        }
+    .
+        if (controlloRiempimento(nome,this.cognome) {
+            throw new ContattoNonValidoException("Nome e cognome non possono essere entrambi vuoti o composti solo da spazi bianchi");
+        }
 
+        // Aggiorno il nome del contatto dopo che tutt i controlli sono stati passati
+        this.nome = nome;
     }
+    
 
     /**
      * @brief Restituisce il cognome del contatto.
@@ -118,7 +163,7 @@ public class Contatto implements Comparable <Contatto> {
      *
      */
     public String getCognome() {
-
+        return cognome;
     }
 
     /**
@@ -134,12 +179,21 @@ public class Contatto implements Comparable <Contatto> {
      * @throws ContattoNonValidoException, senza modificare il campo cognome corrente del contatto, se nome del contatto e cognome fornito sono contemporaneamente vuoti o composti solo da spazi bianchi
      * @throws IllegalArgumentException se cognome == null.
      *
-     **/
-    
-    
+     */
     public void setCognome(String cognome) throws ContattoNonValidoException{
+         // Verifica che il nome non sia null
+        if (cognome == null) {
+            throw new IllegalArgumentException("Il cognome non può essere null");
+        }
+    .
+        if (controlloRiempimento(cognome,this.nome) {
+            throw new ContattoNonValidoException("Nome e cognome non possono essere entrambi vuoti o composti solo da spazi bianchi");
+        }
 
+        // Aggiorno il cognome del contatto dopo che tutt i controlli sono stati passati
+        this.nome = nome;
     }
+    
 
     /**
      * @brief Restituisce la lista dei numeri di telefono del contatto.
@@ -148,7 +202,7 @@ public class Contatto implements Comparable <Contatto> {
      *
      */
     public List<String> getNumeriTelefono() {
-
+        return numeriTelefono;
     }
 
      /**
@@ -161,11 +215,19 @@ public class Contatto implements Comparable <Contatto> {
      * @post La lista dei numeri di telefono del contatto contiene soli e tutti i valori della lista fornita.
      * @post Gli altri campi del contatto non vengono modificati.
      * 
-     * @throws ContattoNonValidoException se numeriTelefono.size() <= maxNumeri, senza aggiornare la lista dei numeri di telefono del contatto
+     * @throws ContattoNonValidoException se numeriTelefono.size() > maxNumeri, senza aggiornare la lista dei numeri di telefono del contatto
      * @throws ContattoNonValidoException se la lista `numeriTelefono` contiene almeno un elemento che non è una stringa numerica (composta solo da cifre), senza aggiornare la lista dei numeri di telefono del contatto
      */
     public void setNumeriTelefono(List<String> numeriTelefono) throws ContattoNonValidoException {
-
+        if (numeriTelefono.size() > maxNumeri) {
+            throw new ContattoNonValidoException("Il numero massimo di numeri di telefono è " + maxNumeri);
+         }
+        for (String numero : numeriTelefono) {
+            if (numero == null || numero.trim().isEmpty() || controlloNumero(numero) {
+                throw new ContattoNonValidoException("Ogni numero di telefono deve essere una stringa numerica valida.");
+            }
+        }
+        this.numeriTelefono = numeriTelefono;
     }
 
     /**
@@ -175,7 +237,7 @@ public class Contatto implements Comparable <Contatto> {
      *
      */
     public List<String> getIndirizziEmail() {
-
+        return indirizziEmail
     }
 
     /**     
@@ -188,10 +250,17 @@ public class Contatto implements Comparable <Contatto> {
      * @post La lista degli indirizzi email del contatto contiene soli e tutti i valori della lista fornita.
      * @post Gli altri campi del contatto non vengono modificati.
      *
-     * @throws ContattoNonValidoException indirizziEmail.size() <= maxEmail, senza aggiornare la lista degli indirizzi email del contatto
+     * @throws ContattoNonValidoException indirizziEmail.size() > maxEmail, senza aggiornare la lista degli indirizzi email del contatto
      */
     public void setIndirizziEmail(List<String> indirizziEmail) throws ContattoNonValidoException {
-
+        if (indirizziEmail.size() > maxEmail) {
+            throw new ContattoNonValidoException("Il numero massimo di indirizzi email è " + maxEmail);
+        }
+        for (String email : indirizziEmail) {
+            if (email == null || email.trim().isEmpty()) {
+                throw new ContattoNonValidoException("Ogni indirizzo email deve essere valido.");
+            }
+         this.indirizziEmail = indirizziEmail;   
     }
 
     /**
@@ -200,7 +269,7 @@ public class Contatto implements Comparable <Contatto> {
      * @return Il numero massimo di numeri di telefono consentiti per contatto.
      */
     public int getMaxNumeri(){
-
+        return maxNumeri;
     }
 
     /**
@@ -209,7 +278,7 @@ public class Contatto implements Comparable <Contatto> {
      * @return Il numero massimo di numeri di indirizzi email consentiti per contatto.
      */
     public int getMaxEmail(){
-
+        return maxEmail;
     }
 
      /**
@@ -227,7 +296,12 @@ public class Contatto implements Comparable <Contatto> {
      */
     @Override
     public int compareTo(Contatto c) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        // Rimuove gli spazi bianchi interni da nome e cognome e li concatena
+        String thisNomeCompleto = (this.cognome + this.nome).replaceAll("\\s+", "");
+        String otherNomeCompleto = (c.cognome + c.nome).replaceAll("\\s+", "");
+
+        // Confronta le stringhe risultanti
+        return thisNomeCompleto.compareTo(otherNomeCompleto);
     }
     
     
@@ -257,7 +331,33 @@ public class Contatto implements Comparable <Contatto> {
     */
 
     @Override
-    public String toString() 
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        
+        //Nome e Cognome
+        sb.append("Nome: ").append(nome).append("\n");
+        sb.append("Cognome: ").append(cognome).append("\n");
+
+        // Lista dei numeri di telefono
+        sb.append("Numeri di telefono: ");
+        if (!numeriTelefono.isEmpty()) {
+           sb.append(String.join(", ", numeriTelefono));
+         } else {
+           sb.append("Nessun numero di telefono");
+        }
+        sb.append("\n");
+
+        // Lista degli indirizzi email
+        sb.append("Indirizzi email: ");
+        if (!indirizziEmail.isEmpty()) {
+            sb.append(String.join(", ", indirizziEmail));
+        } else {
+            sb.append("Nessun indirizzo email");
+        }
+        sb.append("\n");
+
+        return sb.toString();
+    }
     
     /**
     *@brief Confronta il contatto corrente con un altro contatto per verificarne l'uguaglianza.
@@ -273,7 +373,20 @@ public class Contatto implements Comparable <Contatto> {
     */
     
     @Override
-    public boolean equals(Object obj)
+    public boolean equals(Object obj) {
+         if (this == obj) {
+            return true;  // Il contatto corrente e 'obj' sono lo stesso riferimento
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;  // 'obj' è null o non è della stessa class,dunque non possono essere uguali
+        }
+        
+        Contatto altro = (Contatto) obj;
+        // Confronta il nome e cognome, considerando eventuali i spazi interni
+        // Confronta che le liste contengano gli stessi elementi nello steesso ordinee
+        // Restituisce true se tutti i confronti sono veri
+         return this.cognome.equals(altro.cognome) && this.nome.equals(altro.nome) && this.numeriTelefono.equals(altro.numeriTelefono) && this.indirizziEmail.equals(altro.indirizziEmail); 
+        }
 
     
      /**
@@ -292,6 +405,6 @@ public class Contatto implements Comparable <Contatto> {
      */
     @Override
     public int hashCode() {
-       
+       return Objects.hash(nome, cognome, numeriTelefono, indirizziEmail);
     }
 
