@@ -18,4 +18,25 @@ package it.unisa.diem.gruppo21.progettorubrica.model.gestionerubrica;
 
 
 public class ContattoNonValidoException extends Exception{
+  
+    /**
+     * @brief Costruttore di default
+     * 
+     * Questo costruttore crea una nuova eccezione senza un messaggio specifico.
+     */
+    public ContattoNonValidoException() {
+        super();
+    }
+
+     /**
+     * @brief Costruttore con messaggio
+     * 
+     * Questo costruttore permette di passare un messaggio specifico per indicare il motivo dell'errore legato al contatto non valido.
+     * 
+     * @param[in] message Il messaggio di errore che descrive il motivo dell'eccezione.
+     * 
+     */
+    public ContattoNonValidoException(String message) {
+        super(message);
+    }
 }
