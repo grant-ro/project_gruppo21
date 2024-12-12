@@ -1,4 +1,3 @@
-
 package it.unisa.diem.gruppo21.progettorubrica.model.gestionerubrica;
 
 /**
