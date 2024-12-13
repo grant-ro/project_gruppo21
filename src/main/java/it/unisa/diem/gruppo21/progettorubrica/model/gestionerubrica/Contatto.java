@@ -110,7 +110,7 @@ public class Contatto implements Comparable <Contatto> {
      */
     public void setNome(String nome) {
         // Verifica che nome non sia null e che nome e cognome non diventino contemporaneamente vuoti o composti da soli spazi bianchi per effetto del set
-        if (nome == null || controlloRiempimento(nome,this.cognome) ) {
+        if (nome == null || !controlloRiempimento(nome,this.cognome) ) {
             throw new IllegalArgumentException("Parametro cognome non valido per il contatto");
         }
 
@@ -143,7 +143,7 @@ public class Contatto implements Comparable <Contatto> {
      */
     public void setCognome(String cognome) {
         // Verifica che  cognome non sia null e che nome e cognome non diventino contemporaneamente vuoti o composti da soli spazi bianchi per effetto del set
-        if (cognome == null || controlloRiempimento(this.nome,cognome) ) {
+        if (cognome == null || !controlloRiempimento(this.nome,cognome) ) {
             throw new IllegalArgumentException("parametro cognome non valido per il contatto");
         }
 
