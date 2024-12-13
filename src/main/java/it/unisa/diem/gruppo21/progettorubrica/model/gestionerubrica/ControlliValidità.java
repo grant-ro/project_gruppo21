@@ -29,8 +29,8 @@ public class ControlliValidità {
         if (numeroTelefonico== null) {
             throw new IllegalArgumentException("Il parametro numeroTelefoncio non deve essere null.");
         }
-        
-        return numeroTelefonico.trim().matches("\\d{10}");
+        String trimmedNumero=numeroTelefonico.trim();
+        return !trimmedNumero.isEmpty()&& trimmedNumero.matches("\\d{10}");
     }
     
     /**
@@ -46,7 +46,7 @@ public class ControlliValidità {
         if (indirizzoEmail== null) {
             throw new IllegalArgumentException("Il parametro indirizzoEmail non deve essere null.");
         }
-        return indirizzoEmail.trim().isEmpty();
+        return !indirizzoEmail.trim().isEmpty();
     }
     
 
