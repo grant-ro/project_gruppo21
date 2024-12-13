@@ -59,8 +59,8 @@ public class Rubrica {
      * @pre nuovoContatto  deve essere un contatto valido, ossia soddisfare le invarianti definite per l'oggetto Contatto.
      * 
      * @post nuovoContatto è inserito nella rubrica.
-     * @post L'inserimento del contatto non modifica, rimuove o aggiunge alcun altro contatto nella rubrica, oltre al contattoSelezionato. 
-     *         La lista dei contatti rimane invariata ad eccezione del contatto rimosso.
+     * @post L'inserimento del contatto non modifica, rimuove o aggiunge alcun altro contatto nella rubrica, oltre al nuovoContatto. 
+     *         La lista dei contatti rimane invariata ad eccezione del contatto inserito.
      *
      * @throws IllegalArgumentException se 'nuovoContatto' è null.
      */
@@ -94,7 +94,6 @@ public class Rubrica {
      * 
      * @post Il contattoSelezionato è modificato in modo da essere uguale (contiene le stesse info) al contattoModificato.
      * @post La modifica del contatto non modifica, rimuove o aggiunge alcun altro contatto nella rubrica, oltre al contattoSelezionato. 
-     *         La lista dei contatti rimane invariata ad eccezione del contatto rimosso.
      *
      * @throws IllegalArgumentException se 'contattoSelezionato' o 'contattoModificato' sono null.
      */
