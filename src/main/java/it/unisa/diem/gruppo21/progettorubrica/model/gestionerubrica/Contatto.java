@@ -27,12 +27,12 @@ import static it.unisa.diem.gruppo21.progettorubrica.model.gestionerubrica.Contr
  * 
  * @invariant La lista numeriTelefono non deve essere null: numeriTelefono != null
  * @invariant Ogni numero di telefono deve essere una stringa non null, non vuota e non composta da soli spazi bianchi
- * @invariant Ogni numero di telefono deve essere numerico (composto solo da cifre)
- * @invariant La lista numeriTelefono non deve superare il numero massimo di numeri consentiti: numeriTelefono.size() <= maxNumeri
+ * @invariant Ogni numero di telefono deve essere numerico (composto solo da cifre) e composto da sole 10 cifre.
+ * @invariant La lista numeriTelefono non deve superare il numero massimo di numeri consentiti: numeriTelefono.size() ≤ maxNumeri
  * 
  * @invariant La lista indirizziEmail non deve essere null: indirizziEmail != null
  * @invariant Ogni indirizzo email deve essere una stringa non null,non vuota e non composta da soli spazi bianchi
- * @invariant La lista indirizziEmail non deve superare il numero massimo di indirizzi consentiti: indirizziEmail.size() <= maxEmail
+ * @invariant La lista indirizziEmail non deve superare il numero massimo di indirizzi consentiti: indirizziEmail.size() ≤ maxEmail
  * 
  * 
  */
@@ -60,62 +60,30 @@ public class Contatto implements Comparable <Contatto> {
      * @param[in] indirizziEmail Lista di indirizzi email.
      * 
      * 
-     * @pre 'nome' non deve essere null: nome != null
-     * @pre 'cognome' non deve essere null: cognome != null
-     * @pre 'numeriTelefono' non deve essere null(numeriTelefono != null), nè contenere elementi che sono stringhe null,vuote o composte da soli spazi bianchi.
-     * @pre 'indirizziEmail' non deve essere null (indirizziEmail != null),nè contenere elementi che sono stringhe null,vuote o composte da soli spazi bianchi.
+     * @pre Il nome non deve essere null: nome != null
+     * @pre Il cognome non deve essere null: cognome != null
+     * @pre Il nome o il cognome non devono essere contemporaneamente vuoti o composti solo da spazi bianchi.
      * 
+     * @pre La lista numeriTelefono non deve essere null: numeriTelefono != null
+     * @pre Ogni numero di telefono deve essere una stringa non null, non vuota e non composta da soli spazi bianchi
+     * @pre Ogni numero di telefono deve essere numerico (composto solo da cifre) e composto da sole 10 cifre.
+     * @pre La lista numeriTelefono non deve superare il numero massimo di numeri consentiti: numeriTelefono.size() ≤ maxNumeri
+     * 
+     * @pre La lista indirizziEmail non deve essere null: indirizziEmail != null
+     * @pre Ogni indirizzo email deve essere una stringa non null,non vuota e non composta da soli spazi bianchi
+     * @pre La lista indirizziEmail non deve superare il numero massimo di indirizzi consentiti: indirizziEmail.size() ≤ maxEmail
      * 
      * @post Il contatto viene creato con nome, cognome, numeriTelefono e indirizziEmail specificati.
      * 
-     * 
-     * @throws ContattoNonValidoException se 'nome' e 'cognome' sono contemporaneamente vuoti o composti solo da spazi bianchi: nome.trim().isEmpty() && cognome.trim().isEmpty() 
-     * @throws ContattoNonValidoException se la lista `numeriTelefono` contiene almeno un elemento che non è una stringa numerica (composta solo da cifre)
-     * @throws ContattoNonValidoException numeriTelefono.size() > maxNumeri
-     * @throws ContattoNonValidoException indirizziEmail.size() > maxEmail
-     * 
-     * 
-     * @throws IllegalArgumentException se nome == null
-     * @throws IllegalArgumentException se cognome == null
-     * @throws IllegalArgumentException se numeriTelefono == null
-     * @throws IllegalArgumentException se indirizziEmail == null
-     * 
      */
-    public Contatto(String nome, String cognome, List<String> numeriTelefono, List<String> indirizziEmail) throws ContattoNonValidoException {
-        
-        if (nome == null || cognome == null || numeriTelefono == null || indirizziEmail == null) {
-            throw new IllegalArgumentException("I parametri non devono essere null.");
-        }
-
-        
-        if (controlloRiempimento(nome,cognome)) {
-            throw new ContattoNonValidoException("Il nome e il cognome non possono essere vuoti.");
-        }
-
-         if (numeriTelefono.size() > maxNumeri) {
-            throw new ContattoNonValidoException("Il numero massimo di numeri di telefono è " + maxNumeri);
-         }
-        for (String numero : numeriTelefono) {
-            if (numero == null || numero.trim().isEmpty() || controlloNumero(numero)) {
-                 throw new ContattoNonValidoException("Ogni numero di telefono deve essere una stringa numerica valida.");
-            }
-          }
-
-        if (indirizziEmail.size() > maxEmail) {
-            throw new ContattoNonValidoException("Il numero massimo di indirizzi email è " + maxEmail);
-        }
-        for (String email : indirizziEmail) {
-            if (email == null || email.trim().isEmpty()) {
-                throw new ContattoNonValidoException("Ogni indirizzo email deve essere valido.");
-            }
-      }
+    public Contatto(String nome, String cognome, List<String> numeriTelefono, List<String> indirizziEmail) {
         this.nome = nome;
         this.cognome = cognome;
-        this.numeriTelefono = numeriTelefono;
-        this.indirizziEmail = indirizziEmail;
+        
+        // Crea nuovi ArrayList con le informazioni passate
+        this.numeriTelefono = new ArrayList<>(numeriTelefono);
+        this.indirizziEmail = new ArrayList<>(indirizziEmail);
     }
-
-    
 
     /**
      * @brief Restituisce il nome del contatto.
@@ -133,25 +101,20 @@ public class Contatto implements Comparable <Contatto> {
      * @param[in] nome Nuovo nome del contatto.
      *
      * 
-     * @pre 'nome' non deve essere null: nome != null   
+     * @pre 'nome' non deve essere null: nome != null
+     * @pre  nome fornito e cognome corrente del contatto non devono essere contemporaneamente vuoti o composti solo da spazi bianchi.
      * 
-     * @post Il nome del contatto è aggiornato con il valore fornito, solo se nome fornito e cognome del contatto non sono contemporaneamente vuoti o composti solo da spazi bianchi.
+     * @post Il nome del contatto è aggiornato con il valore fornito
      * @post Gli altri campi del contatto non vengono modificati.
      * 
-     * @throw ContattoNonValidoException, senza modificare il campo nome corrente del contatto, se nome fornito e cognome del contatto sono contemporaneamente vuoti o composti solo da spazi bianchi
-     * @throws IllegalArgumentException se nome == null
      */
-    public void setNome(String nome) throws ContattoNonValidoException{
-        // Verifica che il nome non sia null
-        if (nome == null) {
-            throw new IllegalArgumentException("Il nome non può essere null");
-        }
-    
-        if (controlloRiempimento(nome,this.cognome)) {
-            throw new ContattoNonValidoException("Nome e cognome non possono essere entrambi vuoti o composti solo da spazi bianchi");
+    public void setNome(String nome) {
+        // Verifica che nome non sia null e che nome e cognome non diventino contemporaneamente vuoti o composti da soli spazi bianchi per effetto del set
+        if (nome == null || controlloRiempimento(nome,this.cognome) ) {
+            throw new IllegalArgumentException("Parametro cognome non valido per il contatto");
         }
 
-        // Aggiorno il nome del contatto dopo che tutt i controlli sono stati passati
+        // Aggiorna il nome del contatto dopo che tutt i controlli sono stati passati
         this.nome = nome;
     }
     
@@ -171,30 +134,23 @@ public class Contatto implements Comparable <Contatto> {
      *
      * @param[in] cognome Nuovo cognome del contatto.
      * 
-     * @pre 'cognome' non deve essere null: cognome != null 
+     * @pre 'cognome' non deve essere null: cognome != null
+     * @pre  nome corrente del contatto e cognome fornito non devono essere contemporaneamente vuoti o composti solo da spazi bianchi.
      *
-     * @post Il cognome del contatto è aggiornato con il valore fornito, solo se nome del contatto e cognome fornito non sono contemporaneamente vuoti o composti solo da spazi bianchi.
+     * @post Il cognome del contatto è aggiornato con il valore fornito.
      * @post Gli altri campi del contatto non vengono modificati.
      * 
-     * @throws ContattoNonValidoException, senza modificare il campo cognome corrente del contatto, se nome del contatto e cognome fornito sono contemporaneamente vuoti o composti solo da spazi bianchi
-     * @throws IllegalArgumentException se cognome == null.
-     *
      */
-    public void setCognome(String cognome) throws ContattoNonValidoException{
-         // Verifica che il nome non sia null
-        if (cognome == null) {
-            throw new IllegalArgumentException("Il cognome non può essere null");
-        }
-    
-        if (controlloRiempimento(cognome,this.nome)) {
-            throw new ContattoNonValidoException("Nome e cognome non possono essere entrambi vuoti o composti solo da spazi bianchi");
+    public void setCognome(String cognome) {
+        // Verifica che  cognome non sia null e che nome e cognome non diventino contemporaneamente vuoti o composti da soli spazi bianchi per effetto del set
+        if (cognome == null || controlloRiempimento(this.nome,cognome) ) {
+            throw new IllegalArgumentException("parametro cognome non valido per il contatto");
         }
 
-        // Aggiorno il cognome del contatto dopo che tutt i controlli sono stati passati
-        this.nome = nome;
+        // Aggiorna il nome del contatto dopo che tutt i controlli sono stati passati
+        this.cognome = cognome;
     }
     
-
     /**
      * @brief Restituisce la lista dei numeri di telefono del contatto.
      *
@@ -210,24 +166,18 @@ public class Contatto implements Comparable <Contatto> {
      *
      * @param[in] numeriTelefono Nuova lista di numeri di telefono.
      * 
-     * @pre 'numeriTelefono' non deve essere null(numeriTelefono != null), nè contenere elementi che sono stringhe null,vuote o composte da soli spazi bianchi.
-     *
+     * @pre La lista numeriTelefono non deve essere null: numeriTelefono != null
+     * @pre Ogni numero di telefono deve essere una stringa non null, non vuota e non composta da soli spazi bianchi
+     * @pre Ogni numero di telefono deve essere numerico (composto solo da cifre) e composto da sole 10 cifre.
+     * @pre La lista numeriTelefono non deve superare il numero massimo di numeri consentiti: numeriTelefono.size() ≤ maxNumeri
+     * 
      * @post La lista dei numeri di telefono del contatto contiene soli e tutti i valori della lista fornita.
      * @post Gli altri campi del contatto non vengono modificati.
      * 
-     * @throws ContattoNonValidoException se numeriTelefono.size() > maxNumeri, senza aggiornare la lista dei numeri di telefono del contatto
-     * @throws ContattoNonValidoException se la lista `numeriTelefono` contiene almeno un elemento che non è una stringa numerica (composta solo da cifre), senza aggiornare la lista dei numeri di telefono del contatto
      */
-    public void setNumeriTelefono(List<String> numeriTelefono) throws ContattoNonValidoException {
-        if (numeriTelefono.size() > maxNumeri) {
-            throw new ContattoNonValidoException("Il numero massimo di numeri di telefono è " + maxNumeri);
-         }
-        for (String numero : numeriTelefono) {
-            if (numero == null || numero.trim().isEmpty() || controlloNumero(numero)) {
-                throw new ContattoNonValidoException("Ogni numero di telefono deve essere una stringa numerica valida.");
-            }
-        }
-        this.numeriTelefono = numeriTelefono;
+    public void setNumeriTelefono(List<String> numeriTelefono) {
+        // Crea un nuovo ArrayList con le informazioni passate
+        this.numeriTelefono = new ArrayList<>(numeriTelefono);
     }
 
     /**
@@ -245,23 +195,16 @@ public class Contatto implements Comparable <Contatto> {
      *
      * @param[in] indirizziEmail Nuova lista di indirizzi email.
      *
-     * @pre 'indirizziEmail' non deve essere null (indirizziEmail != null),nè contenere elementi che sono stringhe null,vuote o composte da soli spazi bianchi.
+     * @pre La lista indirizziEmail non deve essere null: indirizziEmail != null
+     * @pre Ogni indirizzo email deve essere una stringa non null,non vuota e non composta da soli spazi bianchi
+     * @pre La lista indirizziEmail non deve superare il numero massimo di indirizzi consentiti: indirizziEmail.size() ≤ maxEmail
      * 
      * @post La lista degli indirizzi email del contatto contiene soli e tutti i valori della lista fornita.
      * @post Gli altri campi del contatto non vengono modificati.
-     *
-     * @throws ContattoNonValidoException indirizziEmail.size() > maxEmail, senza aggiornare la lista degli indirizzi email del contatto
      */
-    public void setIndirizziEmail(List<String> indirizziEmail) throws ContattoNonValidoException {
-        if (indirizziEmail.size() > maxEmail) {
-            throw new ContattoNonValidoException("Il numero massimo di indirizzi email è " + maxEmail);
-        }
-        for (String email : indirizziEmail) {
-            if (email == null || email.trim().isEmpty()) {
-                throw new ContattoNonValidoException("Ogni indirizzo email deve essere valido.");
-            }
-         this.indirizziEmail = indirizziEmail;   
-        }
+    public void setIndirizziEmail(List<String> indirizziEmail)  {
+        // Crea un nuovo ArrayList con le informazioni passate
+        this.indirizziEmail = new ArrayList<>(indirizziEmail);
     }
 
     /**
@@ -409,4 +352,5 @@ public class Contatto implements Comparable <Contatto> {
             return Objects.hash(nome, cognome, numeriTelefono, indirizziEmail);
         }
 }
+
 
