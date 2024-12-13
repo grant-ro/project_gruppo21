@@ -1,4 +1,5 @@
 package it.unisa.diem.gruppo21.progettorubrica.model.gestionerubrica;
+
 /**
  *
  * @author granturco-roberta
@@ -12,16 +13,42 @@ package it.unisa.diem.gruppo21.progettorubrica.model.gestionerubrica;
 public class ControlliValidità {
 
     /**
-     * @brief Verifica che la stringa fornita sia una stringa numerica.
+     * @brief Verifica che la stringa fornita sia un numero di telefono valido.
      *
-     * @param[in] numero La stringa da validare.
-     * @return true se numero è una stringa numerica, altrimenti false.
+     * @param[in] numeroTelefonico La stringa da validare.
+     * @return true se numeroTelefonico è una stringa che soddisfa tutta le seguenti condizioni, altrimenti false: 
+     *             -  numeroTelefonico è una stringa non vuota e non composta da soli spazi bianchi.
+     *             -  numeroTelefonico è una stringa numerica (composta solo da caratteri non bianchi che sono cifre).
+     *             -  numeroTelefonico è una stringa composta da 10 cifre.
      *
      * @pre La stringa numero non deve essere null.
+     * 
+     * @throws IllegalArgumentException se numeroTelefonico è null
      */
-    public static boolean controlloNumero(String numero) {
-        return numero != null && numero.matches("\\d+");
+    public static boolean controlloNumeroTelefonico(String numeroTelefonico) {
+        if (numeroTelefonico== null) {
+            throw new IllegalArgumentException("Il parametro numeroTelefoncio non deve essere null.");
+        }
+        
+        return numeroTelefonico.trim().matches("\\d{10}");
     }
+    
+    /**
+     * @brief Verifica che la stringa fornita sia un indirizzo email valido.
+     *
+     * @param[in] indirizzoEmail La stringa da validare.
+     * @return true se indirizzoEmail è una stringa che soddisfa tutta le seguenti condizioni, altrimenti false: 
+     *             -  indirizzoEmail è una stringa non vuota e non composta da soli spazi bianchi.
+     *
+     * @pre La stringa indirizzoEmail non deve essere null.
+     */
+    public static boolean controlloIndirizzoEmail(String indirizzoEmail) {
+        if (indirizzoEmail== null) {
+            throw new IllegalArgumentException("Il parametro indirizzoEmail non deve essere null.");
+        }
+        return indirizzoEmail.trim().isEmpty();
+    }
+    
 
     /**
      * @brief Verifica che le stringhe fornite non siano entrambe vuote o composte da soli spazi bianchi.
@@ -31,8 +58,16 @@ public class ControlliValidità {
      * @return true se almeno una delle stringhe non è vuota o composta da soli spazi vuoti, altrimenti false.
      *
      * @pre Le stringhe a e b non devono essere null.
+     * 
+     * @throws IllegalArgumentException se a==null ||b==null
      */
-     public static boolean controlloRiempimento(String a, String b) {
-         return (a != null && !a.trim().isEmpty()) || (b != null && !b.trim().isEmpty());
+    public static boolean controlloRiempimento(String a, String b) {
+        if (a== null||b==null) {
+            throw new IllegalArgumentException("Nessun parametro per controlloRiempimento deve essere null.");
+        }
+        
+         return (!a.trim().isEmpty() || !b.trim().isEmpty());
      }
 }
+     
+    
