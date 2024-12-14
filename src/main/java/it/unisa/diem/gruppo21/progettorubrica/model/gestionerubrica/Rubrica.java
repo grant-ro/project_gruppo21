@@ -197,10 +197,10 @@ public class Rubrica {
     * 
     * @throws IOException Se ci sono problemi nel caricamento della rubrica:leggere il file: permessi insufficienti, file danneggiato, formato errato.
     * 
-    */
+    *
     public  boolean caricaRubrica() throws IOException {
             return carica(this);
-    }
+    }/
         
     /**
      * @brief Salva la rubrica in un file di persistenza predefinito
@@ -217,11 +217,11 @@ public class Rubrica {
      * 
      * @throws IOException se si verifica un errore durante il salvataggio della rubrica: permessi insufficienti o errore di I/O
      * 
-     */
+     *
     
      public void salvaRubrica() throws IOException {
             salva(this);
-     }
+     }/
 
 
     /**
@@ -238,10 +238,10 @@ public class Rubrica {
      * @return true se tutti i contatti sono stati inseriti con successo, altrimenti false.
      *
      * @throws IOException se si verifica un errore durante l’importazione.
-     */
+     *
     public boolean importaRubrica(String nomeFile) throws IOException{
         return (new OperatoreFile().leggi(nomeFile,this));
-    }
+    }*/
 
 
     /**
@@ -255,10 +255,10 @@ public class Rubrica {
      * @post  Il file CSV creato contiene la rubrica aggiornata.
      *
      * @throws IOException se si verifica un errore durante l’esportazione.
-     */
+     *
     public void esportaRubrica(String nomeFile) throws IOException {
          new OperatoreFile().scrivi(nomeFile,this);
-    }
+    }*/
 
     /**
     *@brief Fornisce una descrizione del contatto

@@ -18,7 +18,7 @@ public class ControlliValidità {
      * @param[in] numeroTelefonico La stringa da validare.
      * @return true se numeroTelefonico è una stringa che soddisfa tutta le seguenti condizioni, altrimenti false: 
      *             -  numeroTelefonico è una stringa non vuota e non composta da soli spazi bianchi.
-     *             -  numeroTelefonico è una stringa numerica (composta solo da caratteri non bianchi che sono cifre).
+     *             -  numeroTelefonico è una stringa numerica (composta solo da cifre).
      *             -  numeroTelefonico è una stringa composta da 10 cifre.
      *
      * @pre La stringa numero non deve essere null.

@@ -77,6 +77,7 @@ public class Contatto implements Comparable <Contatto> {
      * 
      */
     public Contatto(String nome, String cognome, List<String> numeriTelefono, List<String> indirizziEmail) {
+        
         this.nome = nome;
         this.cognome = cognome;
         
@@ -212,8 +213,8 @@ public class Contatto implements Comparable <Contatto> {
      *
      * @return Il numero massimo di numeri di telefono consentiti per contatto.
      */
-    public int getMaxNumeri(){
-        return maxEmail;
+    public static int getMaxNumeri(){
+        return maxNumeri;
     }
 
     /**
@@ -221,7 +222,7 @@ public class Contatto implements Comparable <Contatto> {
      *
      * @return Il numero massimo di numeri di indirizzi email consentiti per contatto.
      */
-    public int getMaxEmail(){
+    public static int getMaxEmail(){
         return maxEmail;
     }
 
@@ -231,6 +232,7 @@ public class Contatto implements Comparable <Contatto> {
      * L’ordine è determinato dalle seguenti operazioni: confronto del campo “Cognome” (dei contatti dotati di solo cognome o cognome e nome)  e del campo “Nome” (dei contatti privi di cognome),
      * senza priorità e distinzione alcuna dovuta ai campi considerati per il confronto. 
      * In caso di conflitto per cognomi omografi, si prosegue al confronto dei nomi dei contatti in conflitto.
+     * Il criterio di ordinamento è case insensitive
      *
      * @param[in] c contatto con cui confrontare il contatto corrente.
      *
@@ -245,7 +247,7 @@ public class Contatto implements Comparable <Contatto> {
         String otherNomeCompleto = (c.cognome + c.nome).replaceAll("\\s+", "");
 
         // Confronta le stringhe risultanti
-        return thisNomeCompleto.compareTo(otherNomeCompleto);
+        return thisNomeCompleto.compareToIgnoreCase(otherNomeCompleto);
     }
     
     

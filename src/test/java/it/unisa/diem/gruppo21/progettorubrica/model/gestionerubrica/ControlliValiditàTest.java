@@ -6,8 +6,6 @@
 package it.unisa.diem.gruppo21.progettorubrica.model.gestionerubrica;
 
 import static it.unisa.diem.gruppo21.progettorubrica.model.gestionerubrica.ControlliValidità.*;
-import java.util.Arrays;
-import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
