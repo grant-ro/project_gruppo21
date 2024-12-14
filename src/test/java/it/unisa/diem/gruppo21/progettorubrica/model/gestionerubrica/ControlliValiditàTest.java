@@ -15,38 +15,22 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  *
- * @author grant
+ * @author granturco-roberta
  */
 public class ControlliValiditàTest {
     
-    @BeforeAll
-    public static void setUpClass() {
-    }
-    
-    @AfterAll
-    public static void tearDownClass() {
-    }
-    
-    @BeforeEach
-    public void setUp() {
-    }
-    
-    @AfterEach
-    public void tearDown() {
-    }
-
     /**
      * Test of controlloNumero method, of class ControlliValidità.
      */
     @Test
     public void testControlloNumeroValido() {
-        // Verifica che il metodo restituisca true quando viene passato un numero di Telefono valido
+        // Verifica che il metodo restituisca true quando viene passato un numero di Telefono valido.
         assertTrue(controlloNumeroTelefonico("1234567890"),"La stringa '123457890' dovrebbe essere considerata valida.");
     }
     
     @Test
     public void testControlloNumeroNonValido() {
-        // Verifica che il metodo restituisca false per un indirizzo email non valido
+        // Verifica che il metodo restituisca false per un indirizzo email non valido.
         // Caso 1: Stringa vuota
         assertFalse(controlloNumeroTelefonico(""), "La stringa vuota non dovrebbe essere considerata valida.");
         
@@ -54,7 +38,7 @@ public class ControlliValiditàTest {
         assertFalse(controlloNumeroTelefonico("  "), "La stringa con soli spazi bianchi non dovrebbe essere considerata valida.");
         
         //Caso 3: Stringa con spazi interni
-        assertFalse(controlloNumeroTelefonico("123 456 78"), "La stringa con soli spazi bianchi non dovrebbe essere considerata valida.");
+        assertFalse(controlloNumeroTelefonico("123 456 78"), "La stringa con spazi bianchi al suo interno non dovrebbe essere considerata valida.");
         
         // Caso 4: Stringa con caratteri non numerici
         assertFalse(controlloNumeroTelefonico("123a45"), "La stringa con caratteri numerici non dovrebbe essere considerata valida.");
@@ -68,20 +52,20 @@ public class ControlliValiditàTest {
 
     @Test
     public void testControlloNumeroNull() {
-        // Verifica che il metodo lanci una IllegalArgumentException quando viene passato null
+        // Verifica che il metodo lanci una IllegalArgumentException quando viene passato null.
         assertThrows(IllegalArgumentException.class, () -> {controlloNumeroTelefonico(null);},
                  "Il metodo deve lanciare un'IllegalArgumentException quando viene passato null come parametro.");
     }
 
     @Test
     public void testControlloIndirizzoEmailValido() {
-        // Verifica che il metodo restituisca true per un indirizzo email valido
+        // Verifica che il metodo restituisca true per un indirizzo email valido.
         assertTrue(controlloIndirizzoEmail("test@example.com"),"La stringa 'test@example.com' dovrebbe essere considerata valida");
     }
 
     @Test
     public void testControlloIndirizzoEmailNonValido() {
-        // Verifica che il metodo restituisca false per un indirizzo email non valido
+        // Verifica che il metodo restituisca false per un indirizzo email non valido.
         // Caso 1: Stringa vuota
         assertFalse(controlloIndirizzoEmail(""), "La stringa vuota non dovrebbe essere considerata valida.");
         
@@ -92,7 +76,7 @@ public class ControlliValiditàTest {
 
     @Test
     public void testControlloIndirizzoEmailNull() {
-        // Verifica che il metodo lanci un'IllegalArgumentException quando viene passato null
+        // Verifica che il metodo lanci un'IllegalArgumentException quando viene passato null.
         assertThrows(IllegalArgumentException.class, () -> {controlloIndirizzoEmail(null);},
             "Il metodo deve lanciare un'IllegalArgumentException quando viene passato null come parametro.");
     }
@@ -104,7 +88,7 @@ public class ControlliValiditàTest {
      */
     @Test
     public void testControlloRiempimentoValido (){
-        // Verifica che il metodo restituisca true quando vengono passate due stringhe che non sono mabo vuote o formate da soli spazi bianchi
+        // Verifica che il metodo restituisca true quando vengono passate due stringhe che non sono entrambe vuote o formate da soli spazi bianchi
         // Caso 1:Solo la seconda contiene del testo
         assertTrue(controlloRiempimento(" ", "Test"), "La seconda contiene del testo, il risultato dovrebbe essere true.");
     

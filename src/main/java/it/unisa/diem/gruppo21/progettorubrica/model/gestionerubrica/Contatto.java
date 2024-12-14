@@ -21,18 +21,18 @@ import static it.unisa.diem.gruppo21.progettorubrica.model.gestionerubrica.Contr
  *
 
  * 
- * @invariant Il nome non deve essere null: nome != null
- * @invariant Il cognome non deve essere null: cognome != null
+ * @invariant Il nome non deve essere null: nome != null.
+ * @invariant Il cognome non deve essere null: cognome != null.
  * @invariant Il nome o il cognome non devono essere contemporaneamente vuoti o composti solo da spazi bianchi.
  * 
- * @invariant La lista numeriTelefono non deve essere null: numeriTelefono != null
- * @invariant Ogni numero di telefono deve essere una stringa non null, non vuota e non composta da soli spazi bianchi
+ * @invariant La lista numeriTelefono non deve essere null: numeriTelefono != null.
+ * @invariant Ogni numero di telefono deve essere una stringa non null, non vuota e non composta da soli spazi bianchi.
  * @invariant Ogni numero di telefono deve essere numerico (composto solo da cifre) e composto da sole 10 cifre.
- * @invariant La lista numeriTelefono non deve superare il numero massimo di numeri consentiti: numeriTelefono.size() ≤ maxNumeri
+ * @invariant La lista numeriTelefono non deve superare il numero massimo di numeri consentiti: numeriTelefono.size() ≤ maxNumeri.
  * 
- * @invariant La lista indirizziEmail non deve essere null: indirizziEmail != null
- * @invariant Ogni indirizzo email deve essere una stringa non null,non vuota e non composta da soli spazi bianchi
- * @invariant La lista indirizziEmail non deve superare il numero massimo di indirizzi consentiti: indirizziEmail.size() ≤ maxEmail
+ * @invariant La lista indirizziEmail non deve essere null: indirizziEmail != null.
+ * @invariant Ogni indirizzo email deve essere una stringa non null,non vuota e non composta da soli spazi bianchi.
+ * @invariant La lista indirizziEmail non deve superare il numero massimo di indirizzi consentiti: indirizziEmail.size() ≤ maxEmail.
  * 
  * 
  */
@@ -46,13 +46,13 @@ public class Contatto implements Comparable <Contatto> {
 
     private List<String> indirizziEmail; ///< Lista di indirizzi email associati al contatto
 
-    private static final int maxNumeri=3; ///< Numero massimo di numeri di telefono consentiti per contatto
+    private static final int MAX_NUMERI=3; ///< Numero massimo di numeri di telefono consentiti per contatto
 
-    private static final int maxEmail=3; ///< Numero massimo di indirizzi email consentiti per contatto
+    private static final int MAX_EMAIL=3; ///< Numero massimo di indirizzi email consentiti per contatto
 
     /**
      * @brief Costruttore della classe `Contatto`.
-     * Crea e inizializza un'istanza della classe Contatto con i parametri forniti.
+     * Inizializza un'istanza della classe Contatto con i parametri forniti.
      * 
      * @param[in] nome Nome del contatto.
      * @param[in] cognome Cognome del contatto.
@@ -60,20 +60,20 @@ public class Contatto implements Comparable <Contatto> {
      * @param[in] indirizziEmail Lista di indirizzi email.
      * 
      * 
-     * @pre Il nome non deve essere null: nome != null
-     * @pre Il cognome non deve essere null: cognome != null
+     * @pre Il nome non deve essere null: nome != null.
+     * @pre Il cognome non deve essere null: cognome != null.
      * @pre Il nome o il cognome non devono essere contemporaneamente vuoti o composti solo da spazi bianchi.
      * 
-     * @pre La lista numeriTelefono non deve essere null: numeriTelefono != null
-     * @pre Ogni numero di telefono deve essere una stringa non null, non vuota e non composta da soli spazi bianchi
+     * @pre La lista numeriTelefono non deve essere null: numeriTelefono != null.
+     * @pre Ogni numero di telefono deve essere una stringa non null, non vuota e non composta da soli spazi bianchi.
      * @pre Ogni numero di telefono deve essere numerico (composto solo da cifre) e composto da sole 10 cifre.
-     * @pre La lista numeriTelefono non deve superare il numero massimo di numeri consentiti: numeriTelefono.size() ≤ maxNumeri
+     * @pre La lista numeriTelefono non deve superare il numero massimo di numeri consentiti: numeriTelefono.size() ≤ maxNumeri.
      * 
-     * @pre La lista indirizziEmail non deve essere null: indirizziEmail != null
-     * @pre Ogni indirizzo email deve essere una stringa non null,non vuota e non composta da soli spazi bianchi
-     * @pre La lista indirizziEmail non deve superare il numero massimo di indirizzi consentiti: indirizziEmail.size() ≤ maxEmail
+     * @pre La lista indirizziEmail non deve essere null: indirizziEmail != null.
+     * @pre Ogni indirizzo email deve essere una stringa non null,non vuota e non composta da soli spazi bianchi.
+     * @pre La lista indirizziEmail non deve superare il numero massimo di indirizzi consentiti: indirizziEmail.size() ≤ maxEmail.
      * 
-     * @post Il contatto viene creato con nome, cognome, numeriTelefono e indirizziEmail specificati.
+     * @post Il contatto viene iniziallizato con nome, cognome, numeriTelefono e indirizziEmail forniti.
      * 
      */
     public Contatto(String nome, String cognome, List<String> numeriTelefono, List<String> indirizziEmail) {
@@ -102,20 +102,20 @@ public class Contatto implements Comparable <Contatto> {
      * @param[in] nome Nuovo nome del contatto.
      *
      * 
-     * @pre 'nome' non deve essere null: nome != null
+     * @pre 'nome' non deve essere null: nome != null.
      * @pre  nome fornito e cognome corrente del contatto non devono essere contemporaneamente vuoti o composti solo da spazi bianchi.
      * 
-     * @post Il nome del contatto è aggiornato con il valore fornito
+     * @post Il nome del contatto è aggiornato con il valore fornito.
      * @post Gli altri campi del contatto non vengono modificati.
      * 
      */
     public void setNome(String nome) {
-        // Verifica che nome non sia null e che nome e cognome non diventino contemporaneamente vuoti o composti da soli spazi bianchi per effetto del set
+        // Verifica che nome non sia null e che nome e cognome non diventino contemporaneamente vuoti o composti da soli spazi bianchi per effetto di tale set.
         if (nome == null || !controlloRiempimento(nome,this.cognome) ) {
             throw new IllegalArgumentException("Parametro cognome non valido per il contatto");
         }
 
-        // Aggiorna il nome del contatto dopo che tutt i controlli sono stati passati
+        // Aggiorna il nome del contatto dopo che tutti i controlli sono stati passati.
         this.nome = nome;
     }
     
@@ -135,7 +135,7 @@ public class Contatto implements Comparable <Contatto> {
      *
      * @param[in] cognome Nuovo cognome del contatto.
      * 
-     * @pre 'cognome' non deve essere null: cognome != null
+     * @pre 'cognome' non deve essere null: cognome != null.
      * @pre  nome corrente del contatto e cognome fornito non devono essere contemporaneamente vuoti o composti solo da spazi bianchi.
      *
      * @post Il cognome del contatto è aggiornato con il valore fornito.
@@ -143,12 +143,12 @@ public class Contatto implements Comparable <Contatto> {
      * 
      */
     public void setCognome(String cognome) {
-        // Verifica che  cognome non sia null e che nome e cognome non diventino contemporaneamente vuoti o composti da soli spazi bianchi per effetto del set
+        // Verifica che  cognome non sia null e che nome e cognome non diventino contemporaneamente vuoti o composti da soli spazi bianchi per effetto di tale set.
         if (cognome == null || !controlloRiempimento(this.nome,cognome) ) {
             throw new IllegalArgumentException("parametro cognome non valido per il contatto");
         }
 
-        // Aggiorna il nome del contatto dopo che tutt i controlli sono stati passati
+        // Aggiorna il nome del contatto dopo che tutti i controlli sono stati passati.
         this.cognome = cognome;
     }
     
@@ -167,17 +167,17 @@ public class Contatto implements Comparable <Contatto> {
      *
      * @param[in] numeriTelefono Nuova lista di numeri di telefono.
      * 
-     * @pre La lista numeriTelefono non deve essere null: numeriTelefono != null
-     * @pre Ogni numero di telefono deve essere una stringa non null, non vuota e non composta da soli spazi bianchi
+     * @pre La lista numeriTelefono non deve essere null: numeriTelefono != null.
+     * @pre Ogni numero di telefono deve essere una stringa non null, non vuota e non composta da soli spazi bianchi.
      * @pre Ogni numero di telefono deve essere numerico (composto solo da cifre) e composto da sole 10 cifre.
-     * @pre La lista numeriTelefono non deve superare il numero massimo di numeri consentiti: numeriTelefono.size() ≤ maxNumeri
+     * @pre La lista numeriTelefono non deve superare il numero massimo di numeri consentiti: numeriTelefono.size() ≤ maxNumeri.
      * 
      * @post La lista dei numeri di telefono del contatto contiene soli e tutti i valori della lista fornita.
      * @post Gli altri campi del contatto non vengono modificati.
      * 
      */
     public void setNumeriTelefono(List<String> numeriTelefono) {
-        // Crea un nuovo ArrayList con le informazioni passate
+        // Crea un nuovo ArrayList con le informazioni passate.
         this.numeriTelefono = new ArrayList<>(numeriTelefono);
     }
 
@@ -196,15 +196,15 @@ public class Contatto implements Comparable <Contatto> {
      *
      * @param[in] indirizziEmail Nuova lista di indirizzi email.
      *
-     * @pre La lista indirizziEmail non deve essere null: indirizziEmail != null
-     * @pre Ogni indirizzo email deve essere una stringa non null,non vuota e non composta da soli spazi bianchi
-     * @pre La lista indirizziEmail non deve superare il numero massimo di indirizzi consentiti: indirizziEmail.size() ≤ maxEmail
+     * @pre La lista indirizziEmail non deve essere null: indirizziEmail != null.
+     * @pre Ogni indirizzo email deve essere una stringa non null,non vuota e non composta da soli spazi bianchi.
+     * @pre La lista indirizziEmail non deve superare il numero massimo di indirizzi consentiti: indirizziEmail.size() ≤ maxEmail.
      * 
      * @post La lista degli indirizzi email del contatto contiene soli e tutti i valori della lista fornita.
      * @post Gli altri campi del contatto non vengono modificati.
      */
     public void setIndirizziEmail(List<String> indirizziEmail)  {
-        // Crea un nuovo ArrayList con le informazioni passate
+        // Crea un nuovo ArrayList con le informazioni passate.
         this.indirizziEmail = new ArrayList<>(indirizziEmail);
     }
 
@@ -214,25 +214,25 @@ public class Contatto implements Comparable <Contatto> {
      * @return Il numero massimo di numeri di telefono consentiti per contatto.
      */
     public static int getMaxNumeri(){
-        return maxNumeri;
+        return MAX_NUMERI;
     }
 
     /**
      * @brief Restituisce il numero massimo di indirizzi email consentiti per contatto.
      *
-     * @return Il numero massimo di numeri di indirizzi email consentiti per contatto.
+     * @return Il numero massimo di indirizzi email consentiti per contatto.
      */
     public static int getMaxEmail(){
-        return maxEmail;
+        return MAX_EMAIL;
     }
 
      /**
-     *@brief Confronta il contatto corrente con il contatto specificato secondo un criterio di ordinamento
-     *Segue un criterio di ordine alfabetico (da A a Z) per cognome e nome. 
+     *@brief Confronta il contatto corrente con il contatto specificato secondo il seguente criterio di ordinamento
+     *@details Segue un criterio di ordine alfabetico (da A a Z) per cognome e nome. 
      * L’ordine è determinato dalle seguenti operazioni: confronto del campo “Cognome” (dei contatti dotati di solo cognome o cognome e nome)  e del campo “Nome” (dei contatti privi di cognome),
      * senza priorità e distinzione alcuna dovuta ai campi considerati per il confronto. 
      * In caso di conflitto per cognomi omografi, si prosegue al confronto dei nomi dei contatti in conflitto.
-     * Il criterio di ordinamento è case insensitive
+     * Il criterio di ordinamento è case insensitive.
      *
      * @param[in] c contatto con cui confrontare il contatto corrente.
      *
@@ -242,11 +242,11 @@ public class Contatto implements Comparable <Contatto> {
      */
     @Override
     public int compareTo(Contatto c) {
-        // Rimuove gli spazi bianchi interni da nome e cognome e li concatena
+        // Rimuove gli spazi bianchi interni ed esterni da nome e cognome, concatena nome e cognome.
         String thisIDCompleto = (this.cognome + this.nome).replaceAll("\\s+", "");
         String otherIDCompleto = (c.cognome + c.nome).replaceAll("\\s+", "");
 
-        // Confronta le stringhe risultanti
+        // Confronta le stringhe risultanti in modo case insensitive
         return thisIDCompleto.compareToIgnoreCase(otherIDCompleto);
     }
     
@@ -256,7 +256,7 @@ public class Contatto implements Comparable <Contatto> {
     /**
     *@brief Fornisce una descrizione del contatto
     *
-    *La stringa sarà formattata nel seguente modo:
+    *@details La stringa sarà formattata nel seguente modo:
     *       - Il nome e il cognome del contatto sono mostrati come "Nome: this.nome " e "Cognome: this.cognome", separati da una nuova riga.
     *       - La lista dei numeri di telefono è mostrata come "Numeri di telefono: numero1, numero2, ..." se esistono numeri, 
     *         altrimenti come "Numeri di telefono: Nessun numero di telefono".
@@ -273,7 +273,7 @@ public class Contatto implements Comparable <Contatto> {
     * Indirizzi email: mario.rossi@gmail.com
     * 
     * 
-    *@return Una stringa che  rappresenta il contatto corrente
+    *@return Una stringa che  rappresenta il contatto corrente.
     */
 
     @Override
@@ -307,7 +307,7 @@ public class Contatto implements Comparable <Contatto> {
     
     /**
     *@brief Confronta il contatto corrente con un altro contatto per verificarne l'uguaglianza.
-    * L'uguaglianza è definita se il nome, cognome, numeri di telefonon e indirizzi email sono identici tra i due oggetti.
+    * Due contatti sono definiti uguali se il nome, cognome, numeri di telefonon e indirizzi emaildi questi sono identici.
     *
     * @param[in] obj L'oggetto da confrontare con l'oggetto corrente. 
     * 
@@ -328,9 +328,9 @@ public class Contatto implements Comparable <Contatto> {
         }
         
         Contatto altro = (Contatto) obj;
-        // Confronta il nome e cognome, considerando eventuali i spazi interni
-        // Confronta che le liste contengano gli stessi elementi nello steesso ordinee
-        // Restituisce true se tutti i confronti sono veri
+        // Confronta il nome e cognome, considerando anche eventuali spazi interni
+        // Confronta che le liste di numeri telefonici e indirizzi email contengano rispettivamente gli stessi elementi nello steesso ordinee.
+        // Restituisce true se tutti i confronti terminano con successo.
          return this.cognome.equals(altro.cognome) && this.nome.equals(altro.nome) && this.numeriTelefono.equals(altro.numeriTelefono) && this.indirizziEmail.equals(altro.indirizziEmail); 
         }
 

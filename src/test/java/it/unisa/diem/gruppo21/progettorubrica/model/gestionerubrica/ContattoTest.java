@@ -18,7 +18,7 @@ import org.junit.jupiter.api.Nested;
 
 /**
  *
- * @author grant
+ * @author granturco-roberta
  */
 public class ContattoTest {
     
@@ -28,40 +28,26 @@ public class ContattoTest {
     String nome;
     String cognome;
     
-    public ContattoTest() {
-    }
-    
-    @BeforeAll
-    public static void setUpClass() {
-    }
-    
-    @AfterAll
-    public static void tearDownClass() {
-    }
-    
-
-    
     @BeforeEach
     public void setUp() {
-              // Crea una lista di numeri di telefono ritenuti validi secondo le precondizioni del metodo:
-        /*pre: La lista numeriTelefono non deve essere null: numeriTelefono != null
-         *pre: Ogni numero di telefono deve essere una stringa non null, non vuota e non composta da soli spazi bianchi
+        // Crea una lista di numeri di telefono ritenuti validi secondo le precondizioni del metodo:
+        /*pre: La lista numeriTelefono non deve essere null: numeriTelefono != null.
+         *pre: Ogni numero di telefono deve essere una stringa non null, non vuota e non composta da soli spazi bianchi.
          *pre: Ogni numero di telefono deve essere numerico (composto solo da cifre) e composto da sole 10 cifre.
          *pre: La lista numeriTelefono non deve superare il numero massimo di numeri consentiti: numeriTelefono.size() ≤ maxNumeri
          */
         numeriTelefono = Arrays.asList("1234567890", "0987654321");
         
         // Crea una lista di numeri di indirizzi email ritenuti validi secondo le precondizioni del metodo:
-        /*
-         *pre: La lista indirizziEmail non deve essere null: indirizziEmail != null
-         *pre: Ogni indirizzo email deve essere una stringa non null,non vuota e non composta da soli spazi bianchi
-         *pre: La lista indirizziEmail non deve superare il numero massimo di indirizzi consentiti: indirizziEmail.size() ≤ maxEmail
+        /*pre: La lista indirizziEmail non deve essere null: indirizziEmail != null.
+         *pre: Ogni indirizzo email deve essere una stringa non null,non vuota e non composta da soli spazi bianchi.
+         *pre: La lista indirizziEmail non deve superare il numero massimo di indirizzi consentiti: indirizziEmail.size() ≤ maxEmail.
         */
         indirizziEmail = Arrays.asList("test1@example.com","test2@example.com");
 
         // Crea un oggetto Contatto, inserendo nome e cognome che rispettano le precondizioni del metodo:
-        /*pre: Il nome non deve essere null: nome != null
-         *pre:Il cognome non deve essere null: cognome != null
+        /*pre: Il nome non deve essere null: nome != null.
+         *pre:Il cognome non deve essere null: cognome != null.
          *pre: Il nome o il cognome non devono essere contemporaneamente vuoti o composti solo da spazi bianchi.
         */
         nome="Mario";
@@ -76,13 +62,13 @@ public class ContattoTest {
     }
     
     /**
-     * Test of constructo method of class Contatto.
+     * Test of constructor method of class Contatto.
      * 
      */
     @Test
     public void testContattoConstructor() {
      
-        // Verifica che il contatto è stato crato con i dati forniti->post: Il contatto viene creato con nome, cognome, numeriTelefono e indirizziEmail specificati.
+        // Verifica che il contatto è stato inizializzato con i dati forniti->post: Il contatto viene creato con nome, cognome, numeriTelefono e indirizziEmail specificati.
         assertEquals(nome, contatto.getNome());
         assertEquals(cognome, contatto.getCognome());
         assertEquals(numeriTelefono, contatto.getNumeriTelefono()); 
@@ -135,12 +121,12 @@ public class ContattoTest {
     @Test
     public void testSetNome() {
         /*Invoco setNome fornendo un nome che soddisfa i prerequisiti del metodo:
-        * pre: 'nome' non deve essere null: nome != null
+        * pre: 'nome' non deve essere null: nome != null.
         * pre:  nome fornito e cognome corrente del contatto non devono essere contemporaneamente vuoti o composti solo da spazi bianchi.
         */ 
         contatto.setNome("Luigi");
         
-        // Verifica che il nome venga correttamente aggiornato: post Il nome del contatto è aggiornato con il valore fornito
+        // Verifica che il nome venga correttamente aggiornato-> post: Il nome del contatto è aggiornato con il valore fornito
         assertEquals("Luigi", contatto.getNome());
         
         // Verifica che i restanti campi non siano stati modificati->post: Gli altri campi del contatto non vengono modificati.
@@ -157,7 +143,7 @@ public class ContattoTest {
     @Test
     public void testSetCognome() {
         /*Invoco setCognome fornendo un nome che soddisfa i prerequisiti del metodo:
-        * pre: 'cognome' non deve essere null: cognome != null
+        * pre: 'cognome' non deve essere null: cognome != null.
         * pre:  nome corrente del contatto e cognome fornito non devono essere contemporaneamente vuoti o composti solo da spazi bianchi.
         */
         contatto.setCognome("Verdi");
@@ -179,15 +165,15 @@ public class ContattoTest {
     @Test
     public void testSetNumeriTelefono() {
         /*Invoco setNumeriTelefono fornendo una lista che soddisfa i prerequisiti del metodo:
-        *pre: La lista numeriTelefono non deve essere null: numeriTelefono != null
-         *pre: Ogni numero di telefono deve essere una stringa non null, non vuota e non composta da soli spazi bianchi
+        *pre: La lista numeriTelefono non deve essere null: numeriTelefono != null.
+         *pre: Ogni numero di telefono deve essere una stringa non null, non vuota e non composta da soli spazi bianchi.
          *pre: Ogni numero di telefono deve essere numerico (composto solo da cifre) e composto da sole 10 cifre.
-         *pre: La lista numeriTelefono non deve superare il numero massimo di numeri consentiti: numeriTelefono.size() ≤ maxNumeri
+         *pre: La lista numeriTelefono non deve superare il numero massimo di numeri consentiti: numeriTelefono.size() ≤ maxNumeri.
          */
         List<String> nuoviNumeri = Arrays.asList("1122334455", "5566778899");
         contatto.setNumeriTelefono(nuoviNumeri);
         
-        // Verifica che i numeri siano stati correttamente aggiornati->post La lista dei numeri di telefono del contatto contiene soli e tutti i valori della lista fornita.
+        // Verifica che i numeri siano stati correttamente aggiornati->post: La lista dei numeri di telefono del contatto contiene soli e tutti i valori della lista fornita.
         assertEquals(nuoviNumeri, contatto.getNumeriTelefono());
         
         // Verifica che i restanti campi non siano stati modificati->post: Gli altri campi del contatto non vengono modificati.
@@ -205,14 +191,14 @@ public class ContattoTest {
     @Test
     public void testSetIndirizziEmail() {
         /*Invoco setIndirizziEmail fornendo una lista che soddisfa i prerequisiti del metodo:
-         *pre: La lista indirizziEmail non deve essere null: indirizziEmail != null
-         *pre: Ogni indirizzo email deve essere una stringa non null,non vuota e non composta da soli spazi bianchi
-         *pre: La lista indirizziEmail non deve superare il numero massimo di indirizzi consentiti: indirizziEmail.size() ≤ maxEmail
+         *pre: La lista indirizziEmail non deve essere null: indirizziEmail != null.
+         *pre: Ogni indirizzo email deve essere una stringa non null,non vuota e non composta da soli spazi bianchi.
+         *pre: La lista indirizziEmail non deve superare il numero massimo di indirizzi consentiti: indirizziEmail.size() ≤ maxEmail.
         */
         List<String> nuoviIndirizzi = Arrays.asList("TEST1@EXAMPLE.com","TEST2@EXAMPLE.com");
         contatto.setIndirizziEmail(nuoviIndirizzi);
         
-        // Verifica che gli indirizzi email siano stati correttamente aggiornati-> post La lista degli indirizzi email del contatto contiene soli e tutti i valori della lista fornita.
+        // Verifica che gli indirizzi email siano stati correttamente aggiornati-> post: La lista degli indirizzi email del contatto contiene soli e tutti i valori della lista fornita.
         assertEquals(nuoviIndirizzi, contatto.getIndirizziEmail());
         
         // Verifica che i restanti campi non siano stati modificati->post: Gli altri campi del contatto non vengono modificati.
@@ -265,16 +251,18 @@ public class ContattoTest {
         
     }
     
-    
+    /**
+     * Creo una nested class per testare metodi che definiscono le relazioni tra oggetti di tipo contatto
+     */
     @Nested
-        class RelazioniContattiTest{
+    class RelazioniContattiTest{
         Contatto contattoUguale;
         Contatto contattoDiverso;
         
         @BeforeEach
         public void setUp() {
-            contattoUguale = new Contatto(nome,cognome,numeriTelefono, indirizziEmail); //Crea un contatto identico all'oggetto contatto già creato
-            contattoDiverso = new Contatto("Luigi","Verdi", Arrays.asList("1111111111"), Arrays.asList("luigi@example.com"));//Crea un oggetto diverso dall'oggetto contatto
+            contattoUguale = new Contatto(nome,cognome,numeriTelefono, indirizziEmail); //Crea un contatto identico all'oggetto contatto già creato precedentemente.
+            contattoDiverso = new Contatto("Luigi","Verdi", Arrays.asList("1111111111"), Arrays.asList("luigi@example.com"));//Crea un oggetto diverso dall'oggetto contatto creato precedentemente.
             
         }
             
@@ -310,25 +298,25 @@ public class ContattoTest {
             
             //Caso 1: contatti con nome e cognome uguali
             assertTrue(contatto.compareTo(contattoUguale) == 0, "Il metodo deve restituire 0 per due contatti con stesso nome e cognome ");
-            //->l'operazione di confronto è riflessiva
+            //->l'operazione di confronto è riflessiva.
        
             //Caso 2: contatti con nome e cognome diversi
-            assertTrue(contatto.compareTo(contattoDiverso) <0, "Il contatto:" +contatto.getCognome()+contatto.getNome()+"deve precedere il contatto"+contattoDiverso.getCognome()+contattoDiverso.getNome());
-            assertTrue(contattoDiverso.compareTo(contatto) >0, "Il contatto:" +contatto.getCognome()+contatto.getNome()+"deve seguire il contatto"+contattoDiverso.getCognome()+contattoDiverso.getNome());
-            //->l'operazione di confronto è antisimmetrica
+            assertTrue(contatto.compareTo(contattoDiverso) <0, "Il contatto:" +contatto.getCognome()+" "+ contatto.getNome()+" deve precedere il contatto "+contattoDiverso.getCognome()+" "+contattoDiverso.getNome());
+            assertTrue(contattoDiverso.compareTo(contatto) >0, "Il contatto:" +contatto.getCognome()+" "+ contatto.getNome()+" deve seguire il contatto "+contattoDiverso.getCognome()+" "+contattoDiverso.getNome());
+            //->l'operazione di confronto è antisimmetrica.
             
             //Caso 3:contatti con stesso cognome
             Contatto contattoAntecedente = new Contatto("Antonio",cognome,numeriTelefono, indirizziEmail);
-            assertTrue(contattoAntecedente.compareTo(contatto) <0, "Il contatto:" +contattoAntecedente.getCognome()+contattoAntecedente.getNome()+"deve precedere il contatto"+contatto.getCognome()+contatto.getNome());
-            //-> il confronto tra cognomi è seguito dal confronto per nome
+            assertTrue(contattoAntecedente.compareTo(contatto) <0, "Il contatto:" +contattoAntecedente.getCognome()+" "+contattoAntecedente.getNome()+" deve precedere il contatto "+contatto.getCognome()+" "+contatto.getNome());
+            //-> il confronto tra cognomi è seguito dal confronto per nome.
             
             //Caso 4: contatto senza cognome
             Contatto contattoSoloNome = new Contatto("Tiziano","   ",numeriTelefono, indirizziEmail);
-            assertTrue(contattoSoloNome.compareTo(contatto) >0, "Il contatto:" +contattoSoloNome.getCognome()+contattoSoloNome.getNome()+"deve seguire il contatto"+contatto.getCognome()+contatto.getNome());
-            assertTrue(contattoSoloNome.compareTo(contattoDiverso) <0, "Il contatto:" +contattoSoloNome.getCognome()+contattoSoloNome.getNome()+"deve precedere il contatto"+contatto.getCognome()+contatto.getNome());
-            //->Il confronto non è influenzato dal fatto che un contatto abbia il cognome vuoto, questo può infatti:
-            //seguire un contatto con cognome:Tiziano segue Rossi Mario
-            //antecedere un contatto con cognome:Tiziano antecede Verdi Luigi
+            assertTrue(contattoSoloNome.compareTo(contatto) >0, "Il contatto:" +contattoSoloNome.getCognome()+" "+contattoSoloNome.getNome()+" deve seguire il contatto "+contatto.getCognome()+" "+contatto.getNome());
+            assertTrue(contattoSoloNome.compareTo(contattoDiverso) <0, "Il contatto:" +contattoSoloNome.getCognome()+" "+contattoSoloNome.getNome()+" deve precedere il contatto "+contatto.getCognome()+" "+contatto.getNome());
+            //->Il confronto non è influenzato dal fatto che un contatto abbia il cognome vuoto o composto da soli spazi bianchi, questo può infatti:
+            //seguire un contatto che possede un cognome non vuoto: Tiziano segue Rossi Mario
+            //antecedere un contatto che posside un cognome non vuoto:Tiziano antecede Verdi Luigi
             
             
             //Caso 5: contatto con spazi interni/esterni nei suoi campi:
@@ -336,15 +324,16 @@ public class ContattoTest {
             assertTrue(contatto.compareTo(contattoSimile) == 0, "Il metodo deve restituire 0 per due contatti che differiscono per spazi interni in nome e cognome");
             contattoSimile = new Contatto("  Mario "," Rossi",numeriTelefono, indirizziEmail);
             assertTrue(contatto.compareTo(contattoSimile) == 0, "Il metodo deve restituire 0 per due contatti che differiscono per spazi iniziali/finali in nome e cognome");
-            //-> il confronto non tiene in considerazione gli spazi
+            //-> l'ordinamento non tiene in considerazione spaazi interni e/o esterni nei campi nome e cognome.
             
             //Caso 6: verifica confronto case insensitive
             contattoSimile = new Contatto("  MARIO "," rossi",numeriTelefono, indirizziEmail);
             assertTrue(contatto.compareTo(contattoSimile) == 0, "Il metodo deve restituire 0 per due contatti che differiscono per il case dei suoi campi");
+            //-> l'ordinamento non tiene in considerazione il case dei campi nome e cognome.
         }
 
-    
     }
+    
 }
 
  

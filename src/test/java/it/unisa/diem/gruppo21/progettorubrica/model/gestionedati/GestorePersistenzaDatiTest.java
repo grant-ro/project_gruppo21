@@ -22,7 +22,7 @@ import java.io.IOException;
 
 /**
  *
- * @author grant
+ * @author granturco-roberta
  */
 public class GestorePersistenzaDatiTest {
     File file; 
@@ -32,7 +32,7 @@ public class GestorePersistenzaDatiTest {
     @BeforeEach
     void setUp() {
         // Assicura che il file non esista prima di iniziare il test
-        file = new File(GestorePersistenzaDati.getFilePredefinito());
+        file = new File(getFilePredefinito());
             if (file.exists()) {
             file.delete(); // Elimina il file se esiste
             }
@@ -62,7 +62,7 @@ public class GestorePersistenzaDatiTest {
     }
 
     @Test
-    void PrimoCaricamentoRubricaTest() throws IOException {
+    void testPrimoAvvioRubrica() throws IOException {
         // Carica la rubrica dal file
         assertFalse(carica(rubrica), "La rubrica non dovrebbe essere caricata, poichè  non esiste già un file di persistenza dati.");
                 

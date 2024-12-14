@@ -16,10 +16,10 @@ import it.unisa.diem.gruppo21.progettorubrica.model.gestionedati.OperatoreFile;
  * @brief Questo file contiene la definizione della classe Rubrica.
  * 
  * @class Rubrica
- * @details Una rubrica è una collezione di contatti.
+ * @details Una rubrica è una collezione di contatti. @see Contatto
  * La classe fornisce metodi per aggiungere, modificare, eliminare e cercare contatti, oltre che a salvare, caricare, importare ed esportare la rubrica.
  * 
- * @invariant La rubrica è sempre ordinata secondo il criterio d’ordine naturale dell’oggetto contatto.
+ * @invariant La rubrica è sempre ordinata secondo il criterio d’ordine naturale dell’oggetto contatto. 
  * @invariant Contatti non deve mai essere null: contatti != null
  * 
  */
@@ -39,10 +39,9 @@ public class Rubrica {
 
     /**
     * @brief Restituisce un'`ObservableList` che rappresenta lo stato attuale della rubrica. 
-    * 
-    * Qualsiasi modifica alla rubrica  sarà automaticamente riflessa  sull'observable list restituita. 
+    * @details Qualsiasi modifica alla rubrica  sarà automaticamente riflessa  sull'observable list restituita da questo metodo. 
     *
-    * @return Un'ObservableList di oggetti `Contatto` contenente tutti i contatti della rubrica corrente.
+    * @return Un'ObservableList di oggetti `Contatto`, contenente tutti i contatti della rubrica corrente.
     */
     public ObservableList<Contatto> getContatti(){
         return contatti;
@@ -55,8 +54,8 @@ public class Rubrica {
  
      * @return true se il contatto è stato inserito nella rubrica, altrimenti false.
      * 
-     * @pre nuovoContatto non deve essere null: nuovoContatto!=null
-     * @pre nuovoContatto  deve essere un contatto valido, ossia soddisfare le invarianti definite per l'oggetto Contatto.
+     * @pre nuovoContatto non deve essere null: nuovoContatto!=null.
+     * @pre nuovoContatto  deve essere un contatto valido, ossia soddisfare le invarianti definite per l'oggetto Contatto. @see Contatto
      * 
      * @post nuovoContatto è inserito nella rubrica.
      * @post L'inserimento del contatto non modifica, rimuove o aggiunge alcun altro contatto nella rubrica, oltre al nuovoContatto. 
@@ -82,14 +81,14 @@ public class Rubrica {
      /**
      * @brief Modifica di un contatto esistente nella rubrica.
      * 
-     * @param[in] contattoSelezionato è il contatto da modificare.
-     * @param[in] contattoModificato è il nuovo contatto che sostituirà quello selezionato..
+     * @param[in] contattoSelezionato Contatto da modificare.
+     * @param[in] contattoModificato Nuovo contatto che sostituirà quello selezionato..
      * 
      * @return true se il contattoSelezionato era presente nella rubrica ed è stato modificato,false se il contatto non era presente nella rubrica 
      * 
      * @pre contattoModificato deve essere un contatto valido, ossia soddisfare le invarianti definite per l'oggetto Contatto.
-     * @pre contattoSelezionato non deve essere null: contattoSelezionato != null
-     * @pre contattoModificato non deve essere null: contattoModificato != null
+     * @pre contattoSelezionato non deve essere null: contattoSelezionato != null.
+     * @pre contattoModificato non deve essere null: contattoModificato != null.
      * 
      * 
      * @post Il contattoSelezionato è modificato in modo da essere uguale (contiene le stesse info) al contattoModificato.
@@ -99,7 +98,7 @@ public class Rubrica {
      */
     public boolean modificaContatto(Contatto contattoSelezionato, Contatto contattoModificato){  
         if (contattoSelezionato == null || contattoModificato == null) {
-           throw new IllegalArgumentException("Contatto selezionato o contatto modificato non possono essere null.");
+           throw new IllegalArgumentException("Contatto selezionato e contatto modificato non possono essere null.");
         }
         
         // Trova l'indice del contatto selezionato nella rubrica
@@ -122,9 +121,9 @@ public class Rubrica {
      * 
      * @param[in] contattoSelezionato è il contatto da eliminare.
      *  
-     * @return true se il contatto è stato rimosso dalla rubrica,false se il contatto non era presente nella rubrica 
+     * @return true se il contatto è stato rimosso dalla rubrica,false se il contatto non era presente nella rubrica quando il metodo stato invocato. 
      * 
-     * @pre contattoSelezionato non deve essere null: contattoSelezionato!=null
+     * @pre contattoSelezionato non deve essere null: contattoSelezionato!=null.
      * 
      * @post contattoSelezionato non è più presente nella rubrica.
      * @post Eventuali duplicati del contattoSelezionato non sono stati rimossi dalla rubrica.
@@ -150,7 +149,6 @@ public class Rubrica {
      *
      *@return Rubrica contenente tutti e soli i contatti della rubrica corrente che hanno campo nome e/o campo cognome che iniziano con la stringa di ricerca fornita;non è casesensitive.
      * 
-     *@pre contattoSelezionato non deve essere null: contattoSelezionato!=null
      *@pre La stringa di ricerca non può essere null:input!=null
      *
      *@post La rubrica corrente non viene modificata. 
@@ -191,7 +189,7 @@ public class Rubrica {
     * @return `true` se il file predefinito di persistenza esiste e la rubrica è stata caricata correttamente da esso, 'false` se il file non esiste. 
     * 
     * 
-    * @post Se il file predefinito di persitenza esiste e viene letto correttamente(il metodo restituisce true), la rubrica contiene tutti i contatti letti dal file di persitenza.
+    * @post Se il file predefinito di persistenza esiste e viene letto correttamente(il metodo restituisce true), la rubrica contiene tutti i contatti letti dal file di persitenza.
     * @post Se il file predefinito di persistenza non esiste, la rubrica corrente non viene modficata.
     * 
     */
@@ -224,7 +222,6 @@ public class Rubrica {
      * @param[in] nomeFile Nome del file da cui importare i contatti in rubrica.
      * 
      * @pre nomeFile deve essere il nome di un file preesistente localmente.
-     * @pre Il file di importazione deve essere accessibile.
      * @pre Il nome del file contiene un'estensione corretta: .csv. 
      * 
      * @post I contatti dal file CSV sono aggiunti alla rubrica esistente.
@@ -269,15 +266,15 @@ public class Rubrica {
     * Dove "ContattoX" è una rappresentazione stringa di un singolo contatto, che è ottenuta dal metodo toString() della classe `Contatto`. 
     * 
     * 
-    *@return Una stringa che  rappresenta il contatto corrente
+    *@return Una stringa che rappresenta lo stato della rubrica corrente
     */
     @Override
     public String toString(){
         StringBuffer sb = new StringBuffer();
     
-        //Scorro la rubrica e ottengo la stringa descittiva di ogni contatto di rubrica 
+        //Scorre la rubrica e ricava la stringa descittiva di ogni contatto di rubrica 
         for (Contatto contatto : contatti) {
-            sb.append(contatto.toString()).append("\n"); //Al termine di ogni contatto inserisco i separatori per la leggibilità
+            sb.append(contatto.toString()).append("\n"); //Al termine di ogni contatto inserisce i separatori per la leggibilità
         }
             
         return sb.toString();

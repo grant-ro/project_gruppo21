@@ -8,6 +8,7 @@ package it.unisa.diem.gruppo21.progettorubrica.model.gestionerubrica;
 /**
  * @file ControlliValidità.java
  * @brief Questo file contiene la classe che fornisce metodi di utilità per la validazione di dati forniti.
+ * 
  * @class ControlliValidità
  */
 public class ControlliValidità {
@@ -41,6 +42,8 @@ public class ControlliValidità {
      *             -  indirizzoEmail è una stringa non vuota e non composta da soli spazi bianchi.
      *
      * @pre La stringa indirizzoEmail non deve essere null.
+     * 
+     * @throws IllegalArgumentException se indirizzoEmail è null.
      */
     public static boolean controlloIndirizzoEmail(String indirizzoEmail) {
         if (indirizzoEmail== null) {

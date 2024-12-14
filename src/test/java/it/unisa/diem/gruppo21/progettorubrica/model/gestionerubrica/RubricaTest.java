@@ -6,7 +6,7 @@
  */
 package it.unisa.diem.gruppo21.progettorubrica.model.gestionerubrica;
 
-import it.unisa.diem.gruppo21.progettorubrica.model.gestionedati.GestorePersistenzaDati;
+import static it.unisa.diem.gruppo21.progettorubrica.model.gestionedati.GestorePersistenzaDati.*;
 import javafx.collections.ObservableList;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Nested;
 
 /**
  *
- * @author grant
+ * @author granturco-roberta
  */
 public class RubricaTest {
     private Rubrica rubrica; 
@@ -34,22 +34,10 @@ public class RubricaTest {
     private Contatto contatto3;
     private Contatto contatto4;
     
-    public RubricaTest() {
-    }
-    
-    @BeforeAll
-    public static void setUpClass() {
-    }
-    
-    @AfterAll
-    public static void tearDownClass() {
-    }
-    
     @BeforeEach
     public void setUp() {
         // Prima di ogni test, crea una nuova istanza di Rubrica
         rubrica = new Rubrica();
-        
         
         //Prima di ogni test,crea dei contatti validi (che soddisfano le invarianti della clase contatto) 
         contatto1 = new Contatto("Marioprin", "Rossiprin",Arrays.asList("10000000"), Arrays.asList("mario.rossi@example.com"));
@@ -69,12 +57,13 @@ public class RubricaTest {
     @Test
     public void Rubrica(){
         
-        assertNotNull(rubrica.getContatti(), "La lista di contatti non dovrebbe essere null."); //invariant: Contatti non deve mai essere null: contatti != null
+        assertNotNull(rubrica.getContatti(), "La lista di contatti non dovrebbe essere null."); //->invariant: Contatti non deve mai essere null: contatti != null.
  
-        assertTrue(rubrica.getContatti().isEmpty(), "La rubrica dovrebbe essere inizializzata vuota."); //post: La rubrica non possiede alcun contatto
+        assertTrue(rubrica.getContatti().isEmpty(), "La rubrica dovrebbe essere inizializzata vuota."); //->post: La rubrica non possiede alcun contatto
         
         //Se la rubrica è vuota essa è anche ordinata->invariant: La rubrica è sempre ordinata secondo il criterio d’ordine naturale dell’oggetto contatto.
     }
+    
     
     /*
      * Test of getContatti method, of class Rubrica.
@@ -82,6 +71,8 @@ public class RubricaTest {
      *public void testGetContatti();
      *Il metodo getContatti è sufficientemente testato nel suo utilizzo per il testRubrica e testInserisciContatto
      */
+    
+    
     
     /**
      * Test of inserisciContatto method, of class Rubrica.
@@ -98,8 +89,8 @@ public class RubricaTest {
         assertTrue(rubrica.getContatti().contains(contatto1), "La rubrica dovrebbe contenere il contatto1 inserito");
         assertTrue(rubrica.getContatti().contains(contatto2), "La rubrica dovrebbe contenere il contatto2 inserito");
 
-        //Verifico la post: L'inserimento del contatto non modifica, rimuove o aggiunge alcun altro contatto nella rubrica, oltre al nuovoContatto. La lista dei contatti rimane invariata ad eccezione del contatto inserito,
-        //La lista contiene ambo i contatti inseriti e ha dimenzione 2, dunque il secondo inserimento non ha modificato gli altri contatti della rubrica  ha avuto solo l'effetto di inserimento desiderato.
+        //Verifico la post: L'inserimento del contatto non modifica, rimuove o aggiunge alcun altro contatto nella rubrica, oltre al nuovoContatto. La lista dei contatti rimane invariata ad eccezione del contatto inserito.
+        //La lista contiene ambo i contatti inseriti e ha dimenzione 2, dunque il secondo inserimento non ha modificato gli altri contatti della rubrica; ha avuto solo l'effetto di inserimento desiderato.
         assertEquals(2, rubrica.getContatti().size(), "La rubrica dovrebbe contenere due contatti.");
         
         //Verifica l'invariante di ordinamento della Rubrica
@@ -122,14 +113,14 @@ public class RubricaTest {
     
         @BeforeEach
         public void setUp() {
-            //Inserisco dei contatti iniziali per la rubrica
+            //Inserisce dei contatti iniziali per la rubrica
             rubrica.inserisciContatto(contatto1);
             rubrica.inserisciContatto(contatto2);
             rubrica.inserisciContatto(contatto3);
             rubrica.inserisciContatto(contatto4);
             contattiPrima=new ArrayList<>(rubrica.getContatti());
             
-            //Creo un nuovo contatto che non inserisco in rubrica
+            //Crea un nuovo contatto che non viene inserito in rubrica
             contatto5 = new Contatto("Eiffel", "Tower", Arrays.asList("50000000"), Arrays.asList("fifiy@example.com"));
             
         }
@@ -139,8 +130,10 @@ public class RubricaTest {
         */
         @Test
         public void testModificaContattoPresente() {
+            // Testa il caso in cui contattoSelezionato è presente nella rubrica
+            
             // Verifica che il contatto sia stato modificato correttamente->return: true se il contattoSelezionato era presente nella rubrica ed è stato modificato
-            assertTrue(rubrica.modificaContatto(contatto3, contatto5), "Il contatto dovrebbe essere stato modificato correttamente.");
+            assertTrue(rubrica.modificaContatto(contatto3, contatto5), "Il contatto da modificare esisteva nella rubrica e il metodo dovrebbe restituire true.");
         
             
             // Verifica che il contatto modificato sia presente nella rubrica e il contatto originale no-> post: Il contattoSelezionato è modificato in modo da essere uguale (contiene le stesse info) al contattoModificato
@@ -148,32 +141,34 @@ public class RubricaTest {
             assertFalse(rubrica.getContatti().contains(contatto3), "La rubrica non dovrebbe contenere più il contatto originale.");
         
             //Verifica la post: La modifica del contatto non modifica, rimuove o aggiunge alcun altro contatto nella rubrica, oltre al contattoSelezionato. 
-            //La lista dei contatti rimane invariata ad eccezione del contatto modificato.
             for(Contatto contatto: contattiPrima) {
                 if(!contatto.equals(contatto3)){
                     assertTrue(rubrica.getContatti().contains(contatto));
                 }
             }
-            assertEquals(contattiPrima.size(), rubrica.getContatti().size(), "La rubrica dovrebbe contenere lo stesso numero di contatti.");
+            
+            assertEquals(contattiPrima.size(), rubrica.getContatti().size(), "La rubrica dovrebbe contenere lo stesso numero di contatti in seguito alla modifica di un contatto effettuata.");
         
-            // Verifica l'ordinamento dei contatti nella rubrica->invariant: La rubrica è sempre ordinata secondo il criterio d’ordine naturale dell’oggetto contatto.
+            // Verifica l'invariante di ordinamento dei contatti della rubrica->invariant: La rubrica è sempre ordinata secondo il criterio d’ordine naturale dell’oggetto contatto.
             verificaOrdinamento(rubrica);
         }
         
         @Test
         public void testModificaContattoAssente() {
             // Testa il caso in cui contattoSelezionato non è presente nella rubrica
+            
             // Verifica che il contatto non sia stato modificato->return: false se il contattoSelezionato non era presente nella rubrica.
-            assertFalse(rubrica.modificaContatto(contatto5, contatto3), "Il contatto5 non è presente in rubrica, dunque nulla deve essere stato modificato.");
+            assertFalse(rubrica.modificaContatto(contatto5, contatto3), "Il contatto da modificare esisteva nella rubrica e il metodo dovrebbe restituire false.");
         
-             //Verifica la post: La modifica del contatto non modifica, rimuove o aggiunge alcun altro contatto nella rubrica, oltre al contattoSelezionato. 
-            //La lista dei contatti rimane invariata ad eccezione del contatto modificato. 
-            //In questo caso vuol dire che l'intera lista contatti non è stata modificata
-            assertEquals(contattiPrima, rubrica.getContatti(),"La lista contatti non deve essere stat modificata poichè il contatto da modificare non era presente");
+            //Verifica la post: La modifica del contatto non modifica, rimuove o aggiunge alcun altro contatto nella rubrica, oltre al contattoSelezionato. 
+            //In questo caso vuol dire che l'intera lista contatti non è stata modificata.
+            assertEquals(contattiPrima, rubrica.getContatti(),"La lista contatti non deve essere stata modificata poichè il contatto da modificare non era presente");
         }
         
         @Test
         public void testModificaContattoNull(){
+            
+            //Prova a passare un parametro null
             assertThrows(IllegalArgumentException.class, () -> {
                 rubrica.modificaContatto(null, contatto1);
                 }, "Doveva essere lanciata un'eccezione IllegalArgumentException per contattoSelezionato null.");
@@ -185,7 +180,8 @@ public class RubricaTest {
 
         @Test
         public void testModificaContattoConDuplicati() {
-            // Aggiungi il contatto due volte alla rubrica,affinchè essa contenga duplicati di uno stesso contatto
+            
+            // Aggiunge il contatto due volte alla rubrica,affinchè essa contenga duplicati di uno stesso contatto
             rubrica.inserisciContatto(contatto3);
     
             rubrica.modificaContatto(contatto3,contatto4);
@@ -198,10 +194,10 @@ public class RubricaTest {
          */
         @Test
         public void testEliminaContattoPresente() {
-            // Verifica che il contatto sia stato rimosso->return:true se il contatto è stato rimosso dalla rubrica
-            assertTrue(rubrica.eliminaContatto(contatto1), "Il contatto esisteva nella rubrica e il metodo dovrebbe restituire true.");
-            assertFalse(rubrica.getContatti().contains(contatto1), "Il contatto non dovrebbe essere più nella rubrica.");
             
+            // Verifica che il contatto sia stato rimosso->return:true se il contatto è stato rimosso dalla rubrica
+            assertTrue(rubrica.eliminaContatto(contatto1), "Il contatto da eliminare esisteva nella rubrica e il metodo dovrebbe restituire true.");
+            assertFalse(rubrica.getContatti().contains(contatto1), "Il contatto non dovrebbe essere più nella rubrica.");
             
             //Verifica la post: La rimozione del contatto non modifica, rimuove o aggiunge alcun altro contatto nella rubrica, oltre al contattoSelezionato. 
             //La lista dei contatti rimane invariata ad eccezione del contatto rimosso.
@@ -210,6 +206,7 @@ public class RubricaTest {
                     assertTrue(rubrica.getContatti().contains(contatto));
                 }
             }
+            
             assertEquals(contattiPrima.size()-1, rubrica.getContatti().size(), "La rubrica dovrebbe contenere un contatto in meno.");
         
             // Verifica l'ordinamento dei contatti nella rubrica->invariant: La rubrica è sempre ordinata secondo il criterio d’ordine naturale dell’oggetto contatto.
@@ -221,7 +218,7 @@ public class RubricaTest {
         public void testEliminaContattoNonEsistente() {
             
             // Verifica che il metodo restituisca false perchè il contatto da rimuovere non era presente->return:false se il contatto non era presente
-            assertFalse(rubrica.eliminaContatto(contatto5), "Il contatto non esisteva nella rubrica e il metodo dovrebbe restituire false.");
+            assertFalse(rubrica.eliminaContatto(contatto5), "Il contatto da eliminare non esisteva nella rubrica e il metodo dovrebbe restituire false.");
             
             //Verifica la post: La rimozione del contatto non modifica, rimuove o aggiunge alcun altro contatto nella rubrica, oltre al contattoSelezionato. 
             //La lista dei contatti rimane invariata ad eccezione del contatto rimosso. 
@@ -238,7 +235,7 @@ public class RubricaTest {
     
         @Test
         public void testEliminaContattoConDuplicati() {
-            // Aggiungi il contatto due volte alla rubrica,affinchè essa contenga duplicati di uno stesso contatto
+            // Aggiunge il contatto due volte alla rubrica,affinchè essa contenga duplicati di uno stesso contatto
             rubrica.inserisciContatto(contatto3);
     
             rubrica.eliminaContatto(contatto3);
@@ -250,7 +247,7 @@ public class RubricaTest {
         * Test of ricercaContatti method, of class Rubrica.
         */
         @Test
-        public void testRicercaContatti_StringaValida() {
+        public void testRicercaContatti_inputValido() {
             // Cerchiamo "Prin"
             String input="Prin";
             
@@ -287,12 +284,6 @@ public class RubricaTest {
         */
         @Test
         public void testToString() {
-            /*Avendo inserito i seguenti contatti in rubrica:
-            contatto1 = new Contatto("Marioprin", "Rossiprin",Arrays.asList("10000000"), Arrays.asList("mario.rossi@example.com"));
-            contatto2 = new Contatto("PrinLuigi", "Verdi", Arrays.asList("20000000"), Arrays.asList("luigi.verdi@example.com"));
-            contatto3 = new Contatto("Peach", "Princess", Arrays.asList("30000000"), Arrays.asList("peach@example.com"));
-            contatto4 = new Contatto("Daisy", "principessa", Arrays.asList("40000000"), Arrays.asList("daisy@example.com"));
-            */
             
             List<Contatto> contattiOrdinati = Arrays.asList(contatto1,contatto2,contatto3,contatto4);
             Collections.sort(contattiOrdinati);
@@ -312,25 +303,26 @@ public class RubricaTest {
         @Nested
         class PersistenzaDiRubricaTest {
             File file;    
-        /**
-         * Test of caricaRubrica method, of class Rubrica.
-         *
-        @Test
-        public void testCaricaRubrica() throws Exception {
         
-        }*/
+            /**
+             * Test of caricaRubrica method, of class Rubrica.
+             *
+            @Test
+            public void testCaricaRubrica() throws Exception {
+             }*/
 
-        /**
-         * Test of salvaRubrica method, of class Rubrica.
-         *
-        @Test
-        public void testSalvaRubrica() throws Exception {
-        
-        }*/
+            /**
+             * Test of salvaRubrica method, of class Rubrica.
+             *
+            @Test
+            public void testSalvaRubrica() throws Exception {
+            }*/
+            
+            
             @BeforeEach
             void setUp() {
-                // Assicura che il file non esista prima di iniziare il test
-                file = new File(GestorePersistenzaDati.getFilePredefinito());
+                // Assicura che il file di persistenza non esista prima di iniziare il test
+                file = new File(getFilePredefinito());
                 if (file.exists()) {
                     file.delete(); // Elimina il file se esiste
                 }
@@ -344,7 +336,7 @@ public class RubricaTest {
                 }
             }
             @Test
-            void PrimoCaricamentoRubricaTest() throws IOException {
+            void testPrimoAvvioRubrica() throws IOException {
                 // Carica la rubrica dal file
                 assertFalse(rubrica.caricaRubrica(), "La rubrica non dovrebbe essere caricata, poichè  non esiste già un file di persistenza dati.");
                 
@@ -356,7 +348,7 @@ public class RubricaTest {
             
             
             @Test
-            void salvaECaricaRubricaTest() throws IOException {
+            void testSalvaECaricaRubrica() throws IOException {
                 // Salva la rubrica nel file
                 rubrica.salvaRubrica();
         
