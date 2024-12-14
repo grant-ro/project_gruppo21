@@ -5,10 +5,25 @@
  */
 package it.unisa.diem.gruppo21.progettorubrica.model.gestionedati;
 
+import it.unisa.diem.gruppo21.progettorubrica.model.gestionerubrica.Rubrica;
+
 /**
  *
  * @author Chiara
  */
 public class GestorePersistenzaDati {
+    static private final String filePredefinito="qualcosa";
     
+    public static String getFilePredefinito() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public static void salva(Rubrica rubrica){
+        return;
+    }
+    
+    public static boolean carica(Rubrica rubrica){
+        return true;
+    }
+ 
 }

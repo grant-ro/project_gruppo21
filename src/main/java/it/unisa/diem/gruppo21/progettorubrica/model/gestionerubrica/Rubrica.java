@@ -186,21 +186,18 @@ public class Rubrica {
     * @details Questo metodo tenta di caricare i dati della rubrica da un file di persistenza predefinito, scritto in una precedente sessione dell'applicazione come effetto dell'invocazione del metodo salvaRubrica. 
     * Se il file non esiste, è possibile che il metodo salvaRubrica non sia mai stato invocato prima, quindi il file non è stato creato. In tal caso, il metodo restituisce `false`. 
     * Se il file esiste e viene caricato correttamente, restituisce `true`.
-    * 
+    * Lancia IOException Se ci sono problemi nel caricamento della rubrica:leggere il file: permessi insufficienti, file danneggiato, formato errato.
     * 
     * @return `true` se il file predefinito di persistenza esiste e la rubrica è stata caricata correttamente da esso, 'false` se il file non esiste. 
     * 
     * 
-    * @post Se il file predefinito di persitenza esiste e viene letto correttamente(il metodo restituisce true), la rubrica contiene tutti e soli i contatti letti dal file di persitenza.
+    * @post Se il file predefinito di persitenza esiste e viene letto correttamente(il metodo restituisce true), la rubrica contiene tutti i contatti letti dal file di persitenza.
     * @post Se il file predefinito di persistenza non esiste, la rubrica corrente non viene modficata.
     * 
-    * 
-    * @throws IOException Se ci sono problemi nel caricamento della rubrica:leggere il file: permessi insufficienti, file danneggiato, formato errato.
-    * 
-    *
+    */
     public  boolean caricaRubrica() throws IOException {
             return carica(this);
-    }/
+    }
         
     /**
      * @brief Salva la rubrica in un file di persistenza predefinito
@@ -208,20 +205,17 @@ public class Rubrica {
      * @details  Questo metodo salva la rubrica corrente in un file di persistenza predefinito. 
      * Se il file non esiste,verrà creato,altrimenti il suo contenuto verrà sovrascritto con i contatti della rubrica corrente.
      * La rubrica viene salvata in un file predefinito, che include tutti i dati necessari per ricaricare la rubrica corrente nell'applicazione.
-     * 
+     * Lancia IOException se si verifica un errore durante il salvataggio della rubrica: permessi insufficienti o errore di I/O
      * 
      *        
      * @post Un file di persistenza predefinito è stato creato, se non esisteva prima dell'invocazione del metodo,altrimenti sovrascritto.
      * @post Il file di persistenza predefinito contiene esattamente i contatti correnti della rubrica in memoria, formattati correttamente per essere caricati in rubrica con un'operazione di caricaRubrica.
      * @post La rubrica corrente non viene modificata
      * 
-     * @throws IOException se si verifica un errore durante il salvataggio della rubrica: permessi insufficienti o errore di I/O
-     * 
-     *
-    
+     */
      public void salvaRubrica() throws IOException {
             salva(this);
-     }/
+     }
 
 
     /**
@@ -288,6 +282,7 @@ public class Rubrica {
             
         return sb.toString();
     }
+
 
 }
 

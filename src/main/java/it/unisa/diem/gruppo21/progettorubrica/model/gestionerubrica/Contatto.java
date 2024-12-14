@@ -236,18 +236,18 @@ public class Contatto implements Comparable <Contatto> {
      *
      * @param[in] c contatto con cui confrontare il contatto corrente.
      *
-     *@return -1 se il contatto corrente precede il contatto specificato, 0 se sono uguali, +1 se il contatto corrente segue il contatto specificato,  secondo il criterio descritto.
+     *@return numero minore di zero se il contatto corrente precede il contatto specificato, 0 se sono uguali, numero maggiore di zero se il contatto corrente segue il contatto specificato,  secondo il criterio descritto.
      *
      *
      */
     @Override
     public int compareTo(Contatto c) {
         // Rimuove gli spazi bianchi interni da nome e cognome e li concatena
-        String thisNomeCompleto = (this.cognome + this.nome).replaceAll("\\s+", "");
-        String otherNomeCompleto = (c.cognome + c.nome).replaceAll("\\s+", "");
+        String thisIDCompleto = (this.cognome + this.nome).replaceAll("\\s+", "");
+        String otherIDCompleto = (c.cognome + c.nome).replaceAll("\\s+", "");
 
         // Confronta le stringhe risultanti
-        return thisNomeCompleto.compareToIgnoreCase(otherNomeCompleto);
+        return thisIDCompleto.compareToIgnoreCase(otherIDCompleto);
     }
     
     

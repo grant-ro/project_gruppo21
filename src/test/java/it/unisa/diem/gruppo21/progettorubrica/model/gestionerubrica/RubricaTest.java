@@ -6,6 +6,7 @@
  */
 package it.unisa.diem.gruppo21.progettorubrica.model.gestionerubrica;
 
+import it.unisa.diem.gruppo21.progettorubrica.model.gestionedati.GestorePersistenzaDati;
 import javafx.collections.ObservableList;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
@@ -14,6 +15,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import it.unisa.diem.gruppo21.progettorubrica.model.gestionerubrica.Contatto;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -119,8 +122,7 @@ public class RubricaTest {
     
         @BeforeEach
         public void setUp() {
-            
-           
+            //Inserisco dei contatti iniziali per la rubrica
             rubrica.inserisciContatto(contatto1);
             rubrica.inserisciContatto(contatto2);
             rubrica.inserisciContatto(contatto3);
@@ -281,41 +283,8 @@ public class RubricaTest {
         }
 
         /**
-         * Test of caricaRubrica method, of class Rubrica.
-         */
-        @Test
-        public void testCaricaRubrica() throws Exception {
-        
-        }
-
-    /**
-     * Test of salvaRubrica method, of class Rubrica.
-     */
-    @Test
-    public void testSalvaRubrica() throws Exception {
-        
-    }
-
-    /**
-     * Test of importaRubrica method, of class Rubrica.
-     *
-    @Test
-    public void testImportaRubrica() throws Exception {
-           }
-    */
-
-    /**
-     * Test of esportaRubrica method, of class Rubrica.
-     *
-    @Test
-    public void testEsportaRubrica() throws Exception {
-    }
-    */
-    
-    
-    /**
-     * Test of toString method, of class Rubrica.
-     */
+        * Test of toString method, of class Rubrica.
+        */
         @Test
         public void testToString() {
             /*Avendo inserito i seguenti contatti in rubrica:
@@ -337,7 +306,97 @@ public class RubricaTest {
             // Verifica che la rappresentazione della rubrica sia corretta
             assertEquals(expected, rubrica.toString(), "Il metodo toString() non restituisce la stringa corretta.");
         }
+        
+        
+        
+        @Nested
+        class PersistenzaDiRubricaTest {
+            File file;    
+        /**
+         * Test of caricaRubrica method, of class Rubrica.
+         *
+        @Test
+        public void testCaricaRubrica() throws Exception {
+        
+        }*/
+
+        /**
+         * Test of salvaRubrica method, of class Rubrica.
+         *
+        @Test
+        public void testSalvaRubrica() throws Exception {
+        
+        }*/
+            @BeforeEach
+            void setUp() {
+                // Assicura che il file non esista prima di iniziare il test
+                file = new File(GestorePersistenzaDati.getFilePredefinito());
+                if (file.exists()) {
+                    file.delete(); // Elimina il file se esiste
+                }
+            }
+        
+            @AfterEach
+            void tearDown() {
+                // Elimina il file di persistenza dopo il test
+                if (file.exists()) {
+                    file.delete();
+                }
+            }
+            @Test
+            void PrimoCaricamentoRubricaTest() throws IOException {
+                // Carica la rubrica dal file
+                assertFalse(rubrica.caricaRubrica(), "La rubrica non dovrebbe essere caricata, poichè  non esiste già un file di persistenza dati.");
+                
+                // Verifica che la rubrica non venga modificata per effetto dell'operazione di caricamento fallita
+                List<Contatto> contattiDopo = rubrica.getContatti();
+                assertEquals(contattiPrima, contattiDopo, "La rubrica dovrebbe contenere esattamente gli stessi contatti che posseedeva prima del fallito caricamento.");
+    
+            }
+            
+            
+            @Test
+            void salvaECaricaRubricaTest() throws IOException {
+                // Salva la rubrica nel file
+                rubrica.salvaRubrica();
+        
+                // Verifica che la rubrica non venga modificata per effetto dell'operazione di salvataggio
+                List<Contatto> contattiDopo = rubrica.getContatti();
+                assertEquals(contattiPrima, contattiDopo, "La rubrica dovrebbe contenere esattamente gli stessi contatti che posseedeva prima del salvataggio.");
+    
+                // Verifica che il file esista dopo il salvataggio
+                assertTrue(file.exists(), "Il file dovrebbe esistere dopo il salvataggio.");
+
+                // Crea una nuova rubrica per caricare i contatti dal file
+                Rubrica rubricaCaricata = new Rubrica();
+        
+                // Carica la rubrica dal file
+                assertTrue(rubricaCaricata.caricaRubrica(), "La rubrica dovrebbe essere caricata correttamente, poichè esiste già un file di persistenza dati.");
+
+                // Verifica che la rubrica caricata contenga gli stessi contatti
+                List<Contatto> contattiCaricati = rubricaCaricata.getContatti();
+                assertEquals(contattiPrima, contattiCaricati, "La rubrica caricata dovrebbe contenere esattamente gli stessi contatti che posseedeva prima del salvataggio.");
+            }
+        
+        }
+    
     }
+    /**
+     * Test of importaRubrica method, of class Rubrica.
+     *
+    @Test
+    public void testImportaRubrica() throws Exception {
+           }
+    */
+
+    /**
+     * Test of esportaRubrica method, of class Rubrica.
+     *
+    @Test
+    public void testEsportaRubrica() throws Exception {
+    }
+    */
+    
     
     /*
     *Verifica l'ordinamento dei contatti nella rubrica->invariant: La rubrica è sempre ordinata secondo il criterio d’ordine naturale dell’oggetto contatto.
@@ -353,5 +412,5 @@ public class RubricaTest {
     // Confronta la lista ordinata con la lista nella rubrica
     assertEquals(contattiOrdinati, rubrica.getContatti(), "I contatti nella rubrica non sono ordinati correttamente.");
     }
-}
+}    
 

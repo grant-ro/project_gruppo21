@@ -14,6 +14,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Nested;
 
 /**
  *
@@ -240,14 +241,6 @@ public class ContattoTest {
         assertEquals(3, Contatto.getMaxEmail());
     }
     
-
-
-    /**
-     * Test of compareTo method, of class Contatto.
-     */
-
-    
-
     /**
      * Test of toString method, of class Contatto.
      */
@@ -272,35 +265,86 @@ public class ContattoTest {
         
     }
     
-
-    /**
-     * Test of equals method, of class Contatto.
-     */
-    @Test
-    public void testEquals() {
-        //Caso 1: contatti con stesso nome,cognome, stesi elementi, nello stesso ordine, per lista di numeri telefonici ed indirizzi email
-        Contatto contattoUguale = new Contatto("Mario","Rossi",Arrays.asList("1234567890", "0987654321"),  Arrays.asList("test1@example.com","test2@example.com")); //Crea un contatto identico all'oggetto contatto
-        assertTrue(contatto.equals(contattoUguale), "I contatti con stessi attributi dovrebbero essere uguali.");
-        
-        //Caso 2: contatti con attributi diversi
-        Contatto contattoDiverso = new Contatto("Mario","Rossi", Arrays.asList("1111111111"), Arrays.asList("luigi@example.com"));//Crea un oggetto diverso dall'oggetto contatto
-        assertFalse(contatto.equals(contattoDiverso),  "I contatti con diversi attributi non dovrebbero essere uguali."); 
-    }
-
-    /**
-     * Test of hashCode method, of class Contatto.
-     */
-    @Test
-    public void testHashCode() {
-        //Caso 1: contatti con stesso nome,cognome, stesi elementi, nello stesso ordine, per lista di numeri telefonici ed indirizzi email
-        Contatto contattoUguale = new Contatto("Mario","Rossi",Arrays.asList("1234567890", "0987654321"),  Arrays.asList("test1@example.com","test2@example.com")); //Crea un contatto identico all'oggetto contatto
-        assertEquals(contatto.hashCode(), contattoUguale.hashCode(), "I contatti con attributi uguali dovrebbero avere codici hash uguali.");
-        
-        //Caso 2: contatti con attributi diversi
-        Contatto contattoDiverso = new Contatto("Mario","Rossi", Arrays.asList("1111111111"), Arrays.asList("luigi@example.com"));//Crea un oggetto diverso dall'oggetto contatto
-        assertNotEquals(contatto.hashCode(), contattoDiverso.hashCode(), "I contatti con attributi diversi dovrebbero avere codici hash diversi.");
-    }
     
+    @Nested
+        class RelazioniContattiTest{
+        Contatto contattoUguale;
+        Contatto contattoDiverso;
+        
+        @BeforeEach
+        public void setUp() {
+            contattoUguale = new Contatto(nome,cognome,numeriTelefono, indirizziEmail); //Crea un contatto identico all'oggetto contatto già creato
+            contattoDiverso = new Contatto("Luigi","Verdi", Arrays.asList("1111111111"), Arrays.asList("luigi@example.com"));//Crea un oggetto diverso dall'oggetto contatto
+            
+        }
+            
+        /**
+         * Test of equals method, of class Contatto.
+         */
+        @Test
+        public void testEquals() {
+            //Caso 1: contatti con stesso nome,cognome, stessa lista di numeri telefonici e di indirizzi email
+            assertTrue(contatto.equals(contattoUguale), "I contatti con stessi attributi dovrebbero essere uguali.");
+        
+            //Caso 2: contatti con attributi diversi
+            assertFalse(contatto.equals(contattoDiverso),  "I contatti con diversi attributi non dovrebbero essere uguali."); 
+        }
+
+        /** 
+        * Test of hashCode method, of class Contatto.
+        */
+        @Test
+        public void testHashCode() {
+            //Caso 1: contatti con stesso nome,cognome, stessa lista di numeri telefonici e di indirizzi email
+            assertEquals(contatto.hashCode(), contattoUguale.hashCode(), "I contatti con attributi uguali dovrebbero avere codici hash uguali.");
+        
+            //Caso 2: contatti con attributi diversi
+            assertNotEquals(contatto.hashCode(), contattoDiverso.hashCode(), "I contatti con attributi diversi dovrebbero avere codici hash diversi.");
+        }
+        
+         /**
+         * Test of compareTo method, of class Contatto.
+         */
+        @Test 
+        public void testCompareTo(){
+            
+            //Caso 1: contatti con nome e cognome uguali
+            assertTrue(contatto.compareTo(contattoUguale) == 0, "Il metodo deve restituire 0 per due contatti con stesso nome e cognome ");
+            //->l'operazione di confronto è riflessiva
+       
+            //Caso 2: contatti con nome e cognome diversi
+            assertTrue(contatto.compareTo(contattoDiverso) <0, "Il contatto:" +contatto.getCognome()+contatto.getNome()+"deve precedere il contatto"+contattoDiverso.getCognome()+contattoDiverso.getNome());
+            assertTrue(contattoDiverso.compareTo(contatto) >0, "Il contatto:" +contatto.getCognome()+contatto.getNome()+"deve seguire il contatto"+contattoDiverso.getCognome()+contattoDiverso.getNome());
+            //->l'operazione di confronto è antisimmetrica
+            
+            //Caso 3:contatti con stesso cognome
+            Contatto contattoAntecedente = new Contatto("Antonio",cognome,numeriTelefono, indirizziEmail);
+            assertTrue(contattoAntecedente.compareTo(contatto) <0, "Il contatto:" +contattoAntecedente.getCognome()+contattoAntecedente.getNome()+"deve precedere il contatto"+contatto.getCognome()+contatto.getNome());
+            //-> il confronto tra cognomi è seguito dal confronto per nome
+            
+            //Caso 4: contatto senza cognome
+            Contatto contattoSoloNome = new Contatto("Tiziano","   ",numeriTelefono, indirizziEmail);
+            assertTrue(contattoSoloNome.compareTo(contatto) >0, "Il contatto:" +contattoSoloNome.getCognome()+contattoSoloNome.getNome()+"deve seguire il contatto"+contatto.getCognome()+contatto.getNome());
+            assertTrue(contattoSoloNome.compareTo(contattoDiverso) <0, "Il contatto:" +contattoSoloNome.getCognome()+contattoSoloNome.getNome()+"deve precedere il contatto"+contatto.getCognome()+contatto.getNome());
+            //->Il confronto non è influenzato dal fatto che un contatto abbia il cognome vuoto, questo può infatti:
+            //seguire un contatto con cognome:Tiziano segue Rossi Mario
+            //antecedere un contatto con cognome:Tiziano antecede Verdi Luigi
+            
+            
+            //Caso 5: contatto con spazi interni/esterni nei suoi campi:
+            Contatto contattoSimile = new Contatto("Ma Rio","Ro Ssi",numeriTelefono, indirizziEmail);
+            assertTrue(contatto.compareTo(contattoSimile) == 0, "Il metodo deve restituire 0 per due contatti che differiscono per spazi interni in nome e cognome");
+            contattoSimile = new Contatto("  Mario "," Rossi",numeriTelefono, indirizziEmail);
+            assertTrue(contatto.compareTo(contattoSimile) == 0, "Il metodo deve restituire 0 per due contatti che differiscono per spazi iniziali/finali in nome e cognome");
+            //-> il confronto non tiene in considerazione gli spazi
+            
+            //Caso 6: verifica confronto case insensitive
+            contattoSimile = new Contatto("  MARIO "," rossi",numeriTelefono, indirizziEmail);
+            assertTrue(contatto.compareTo(contattoSimile) == 0, "Il metodo deve restituire 0 per due contatti che differiscono per il case dei suoi campi");
+        }
+
+    
+    }
 }
 
  
