@@ -264,13 +264,13 @@ public class Rubrica {
     *@brief Fornisce una descrizione del contatto
     *
     * Questo metodo restituisce una rappresentazione della rubrica in formato stringa come una concatenazione delle informazioni di ciascun contatto.
-    * Ogni sezione di informazioni di contatto  è separata da una nuova riga e da un ';'. 
+    * Ogni sezione di informazioni di contatto  è separata da una nuova riga. 
     * La formattazione generale è la seguente:
     * 
-    * Contatto1 ; 
-    * Contatto2 ;
+    * Contatto1  
+    * Contatto2 
     * ...
-    * ContattoX ;
+    * ContattoX 
     * 
     * Dove "ContattoX" è una rappresentazione stringa di un singolo contatto, che è ottenuta dal metodo toString() della classe `Contatto`. 
     * 
@@ -283,7 +283,7 @@ public class Rubrica {
     
         //Scorro la rubrica e ottengo la stringa descittiva di ogni contatto di rubrica 
         for (Contatto contatto : contatti) {
-            sb.append(contatto.toString()).append(";\n"); //Al termine di ogni contatto inserisco i separatori per la leggibilità
+            sb.append(contatto.toString()).append("\n"); //Al termine di ogni contatto inserisco i separatori per la leggibilità
         }
             
         return sb.toString();

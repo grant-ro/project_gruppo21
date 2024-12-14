@@ -122,7 +122,7 @@ public class ControlliValiditàTest {
         assertFalse(controlloRiempimento("", ""), "Entrambe le stringhe sono vuote, il risultato dovrebbe essere false.");
         
         // Caso 2: Entrambe le stringhe contengono solo spazi bianchi
-        assertFalse(controlloRiempimento("   ", "   "), "Entrambe le stringhe contengono solo spazi bianchi, il risultato dovrebbe essere");
+        assertFalse(controlloRiempimento("   ", "   "), "Entrambe le stringhe contengono solo spazi bianchi, il risultato dovrebbe essere false");
     }
     
     @Test

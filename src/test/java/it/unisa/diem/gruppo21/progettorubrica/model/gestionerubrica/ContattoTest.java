@@ -256,7 +256,6 @@ public class ContattoTest {
         String expected = "Nome: Mario\nCognome: Rossi\nNumeri di telefono: 1234567890, 0987654321\nIndirizzi email: test1@example.com, test2@example.com\n";
         assertEquals(expected, contatto.toString());
         
-        //da riscrivere con lista vuota per indirzzi e numeri telefonci
     }
     
     @Test
