@@ -90,8 +90,8 @@ public class RubricaTest {
     public void testInserisciContattiValidi() {
         
         // Verifica che i contatti siano aggiunti correttamente->return: true se il contatto è stato inserito nella rubrica, altrimenti false.
-        assertTrue(rubrica.inserisciContatto(contatto1), "Il contatto dovrebbe essere inserito correttamente.");
         assertTrue(rubrica.inserisciContatto(contatto2), "Il contatto dovrebbe essere inserito correttamente.");
+        assertTrue(rubrica.inserisciContatto(contatto1), "Il contatto dovrebbe essere inserito correttamente.");
         
         
         //Verifico che il contatto da inserire è stato effettivamente inserito nella rubrica->post: nuovoContatto è inserito nella rubrica.
@@ -199,14 +199,14 @@ public class RubricaTest {
         @Test
         public void testEliminaContattoPresente() {
             // Verifica che il contatto sia stato rimosso->return:true se il contatto è stato rimosso dalla rubrica
-            assertTrue(rubrica.eliminaContatto(contatto3), "Il contatto esisteva nella rubrica e il metodo dovrebbe restituire true.");
-            assertFalse(rubrica.getContatti().contains(contatto3), "Il contatto non dovrebbe essere più nella rubrica.");
+            assertTrue(rubrica.eliminaContatto(contatto1), "Il contatto esisteva nella rubrica e il metodo dovrebbe restituire true.");
+            assertFalse(rubrica.getContatti().contains(contatto1), "Il contatto non dovrebbe essere più nella rubrica.");
             
             
             //Verifica la post: La rimozione del contatto non modifica, rimuove o aggiunge alcun altro contatto nella rubrica, oltre al contattoSelezionato. 
             //La lista dei contatti rimane invariata ad eccezione del contatto rimosso.
             for(Contatto contatto: contattiPrima) {
-                if(!contatto.equals(contatto3)){
+                if(!contatto.equals(contatto1)){
                     assertTrue(rubrica.getContatti().contains(contatto));
                 }
             }
