@@ -66,7 +66,7 @@ public class ControlliValidità {
             throw new IllegalArgumentException("Nessun parametro per controlloRiempimento deve essere null.");
         }
         
-         return (!a.trim().isEmpty() || !b.trim().isEmpty());
+         return !(a.trim().isEmpty() && b.trim().isEmpty());
      }
 }
      
