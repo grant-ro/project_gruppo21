@@ -384,10 +384,25 @@ public class RubricaTest {
     /**
      * Test of esportaRubrica method, of class Rubrica.
      *
-    @Test
-    public void testEsportaRubrica() throws Exception {
-    }
     */
+    @Test
+    void testEsportaRubricaFileCreato() throws IOException {
+        // Nome del file di destinazione
+        String nomeFile = "rubrica.csv";
+        
+        // Creazione nuova rubrica
+        Rubrica rubrica = new Rubrica();
+
+        // metodo da testare
+        rubrica.esportaRubrica(nomeFile);
+        
+        // Verifica che il file esista
+        File file = new File(nomeFile);
+        assertTrue(file.exists(), "Il file non è stato creato");
+
+        // Pulisci il file creato
+        file.delete();
+    }
     
     
     /*
