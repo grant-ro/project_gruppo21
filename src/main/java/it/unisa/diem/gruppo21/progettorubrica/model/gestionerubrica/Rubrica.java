@@ -193,7 +193,7 @@ public class Rubrica {
     * @post Se il file predefinito di persistenza non esiste, la rubrica corrente non viene modficata.
     * 
     */
-    public  boolean caricaRubrica() throws IOException {
+    public  boolean caricaRubrica() throws IOException, ClassNotFoundException {
             return carica(this);
     }
         
