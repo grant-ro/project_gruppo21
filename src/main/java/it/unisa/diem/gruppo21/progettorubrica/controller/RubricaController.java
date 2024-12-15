@@ -384,7 +384,111 @@ public class RubricaController implements Initializable {
            }
 }
 
+  //Metodo che gestisce la Conferma per l'inserimento di un nuovo contatto o per le modifiche ad un contatto esistente
+    @FXML
+    private void conferma(ActionEvent event) {
+    //Ottieni i valori dai campi di input
+    String nome = campoNome.getText();
+    String cognome = campoCognome.getText();
+
+    //Numeri telefono
+    String telefono1 = campoTelefono1.getText();
+    String telefono2 = campoTelefono2.getText();
+    String telefono3 = campoTelefono3.getText();
+
+    //Indirizzi Email
+    String email1 = campoIndirizzoEmail1.getText();
+    String email2 = campoIndirizzoEmail2.getText();
+    String email3 = campoIndirizzoEmail3.getText();
+
+    //Verifica validità dei campi
+    if (!ControlliValidità.controlloRiempimento(nome, cognome)) {
+        mostraErrore("Nome e Cognome non possono essere vuoti.");
+        return;
+    }
+
+    ArrayList<String> numeriTelefono = new ArrayList<>();
+     for (String telefono : Arrays.asList(telefono1, telefono2, telefono3)) {
+       if (!telefono.isEmpty()) {
+         if (!ControlliValidità.controlloNumeroTelefonico(telefono)) {
+            mostraErrore("Il numero di telefono \"" + telefono + "\" non è valido.");
+            return;
+         }
+         numeriTelefono.add(telefono);
+       }
+      }
   
+    ArrayList<String> indirizziEmail = new ArrayList<>();
+     for (String email : Arrays.asList(email1, email2, email3)) {
+       if (!email.isEmpty()) {
+         if (email.trim().isEmpty()) {
+            mostraErrore("L'indirizzo email \"" + email + "\" non può essere vuoto.");
+            return;
+         }
+         indirizziEmail.add(email);
+       }
+     }
+
+     
+    // Modifica contatto esistente
+    if (contattoSelezionato != null) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Conferma Modifica");
+        alert.setHeaderText("Sei sicuro di voler modificare questo contatto?");
+        alert.setContentText("Nome: " + nome + "\nCognome: " + cognome);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            contattoSelezionato.setNome(nome);
+            contattoSelezionato.setCognome(cognome);
+            contattoSelezionato.setNumeriTelefono(numeriTelefono);
+            contattoSelezionato.setIndirizziEmail(indirizziEmail);
+
+            ordinaContatti();
+            listaContatti.setItems(rubrica.getContatti());
+            listaContatti.refresh();
+
+            rightVBox.setVisible(false);
+            rightVBox.setManaged(false);
+
+            Alert successo = new Alert(Alert.AlertType.INFORMATION);
+            successo.setTitle("Modifica Completata");
+            successo.setHeaderText(null);
+            successo.setContentText("Il contatto è stato modificato con successo.");
+            successo.showAndWait();
+        }
+      } else {
+        //Inserimento nuovo contatto
+        Contatto nuovoContatto = new Contatto(nome, cognome, numeriTelefono, indirizziEmail);
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Conferma Inserimento");
+        alert.setHeaderText("Sei sicuro di voler aggiungere questo contatto?");
+        alert.setContentText("Nome: " + nome + "\nCognome: " + cognome);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            boolean successo = rubrica.inserisciContatto(nuovoContatto);
+
+            if (successo) {
+                ordinaContatti();
+                listaContatti.setItems(rubrica.getContatti());
+                listaContatti.refresh();
+
+                rightVBox.setVisible(false);
+                rightVBox.setManaged(false);
+                clearFields();
+
+                contattoSelezionato = null;
+            }
+        } else {
+            rightVBox.setVisible(false);
+            rightVBox.setManaged(false);
+            listaContatti.setVisible(true);
+        }
+      }
+}
+
 
   
   
