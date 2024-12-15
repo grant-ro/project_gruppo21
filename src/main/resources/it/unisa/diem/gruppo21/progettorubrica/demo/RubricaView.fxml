@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.*?>
 
-<BorderPane prefHeight="677.0" prefWidth="969.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unisa.diem.gruppo21.progettorubrica.controller.RubricaController">
+<BorderPane prefHeight="677.0" prefWidth="969.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unisa.diem.gruppo21.progettorubrica.controller.Controller">
    <left>
       <VBox prefHeight="677.0" prefWidth="215.0" BorderPane.alignment="CENTER">
          <children>
@@ -22,19 +22,9 @@
                   <Insets top="400.0" />
                </VBox.margin>
                <children>
-                  <Button fx:id="modificaContatto" mnemonicParsing="false" onAction="#modificaContatto" text="Modifica">
-                     <VBox.margin>
-                        <Insets left="10.0" top="50.0" />
-                     </VBox.margin>
-                  </Button>
-                  <Button fx:id="eliminaContatto" mnemonicParsing="false" onAction="#eliminaContatto" text="Elimina">
-                     <VBox.margin>
-                        <Insets left="10.0" top="20.0" />
-                     </VBox.margin>
-                  </Button>
                   <Button fx:id="nuovoContatto" mnemonicParsing="false" onAction="#aggiungiContatto" text="Aggiungi Contatto">
                      <VBox.margin>
-                        <Insets left="10.0" top="30.0" />
+                        <Insets left="10.0" top="190.0" />
                      </VBox.margin>
                   </Button>
                </children>
@@ -52,16 +42,19 @@
                         <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
                      </HBox.margin>
                      <image>
-                        <Image url="@../resource/images/Untitled%20design.png" />
+                        <Image url="@../../../../../../images/Immagine%20WhatsApp%202024-12-15%20ore%2017.01.49_fea28021.jpg" />
                      </image>
                   </ImageView>
-                  <TextField fx:id="ricerca" onAction="#ricerca" prefHeight="39.0" prefWidth="314.0">
+                  <TextField fx:id="ricerca" onAction="#ricerca" prefHeight="39.0" prefWidth="216.0" promptText="Cerca..">
                      <HBox.margin>
                         <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
                      </HBox.margin>
                   </TextField>
                </children>
             </HBox>
+            
+            <Label alignment="CENTER" style="-fx-font-size: 16px;" text="Lista Contatti" />
+            
             <HBox prefHeight="649.0" prefWidth="340.0">
                <children>
                   <ListView fx:id="listaContatti" editable="true" prefHeight="636.0" prefWidth="255.0">
@@ -69,99 +62,123 @@
                         <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
                      </HBox.margin>
                   </ListView>
-                  <ScrollBar orientation="VERTICAL" prefHeight="672.0" prefWidth="22.0">
-                     <HBox.margin>
-                        <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
-                     </HBox.margin>
-                  </ScrollBar>
                </children>
             </HBox>
          </children>
-         <BorderPane.margin>
-            <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
-         </BorderPane.margin>
       </VBox>
    </center>
    <right>
       <VBox fx:id="rightVBox" prefHeight="677.0" prefWidth="459.0" visible="true" BorderPane.alignment="CENTER">
          <children>
-            <HBox prefHeight="100.0" prefWidth="200.0">
+            <VBox prefHeight="560.0" prefWidth="459.0">
                <children>
-                  <ImageView fitHeight="143.0" fitWidth="113.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../resource/images/images.png" />
-                     </image>
-                     <HBox.margin>
-                        <Insets bottom="20.0" left="20.0" right="20.0" top="30.0" />
-                     </HBox.margin>
-                  </ImageView>
-                  <VBox prefHeight="132.0" prefWidth="236.0">
+                  <!-- Qui vengono inseriti i campi di input per nome, cognome, telefono, email, ecc. -->
+                  <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Label fx:id="nome" text="Nome">
-                           <VBox.margin>
-                              <Insets bottom="10.0" left="50.0" right="50.0" top="20.0" />
-                           </VBox.margin>
-                        </Label>
-                        <TextField fx:id="campoNome" onAction="#aggiungiNome">
-                           <VBox.margin>
-                              <Insets left="50.0" top="10.0" />
-                           </VBox.margin>
-                        </TextField>
-                        <Label fx:id="cognome" text="Cognome">
-                           <VBox.margin>
-                              <Insets bottom="10.0" left="50.0" right="50.0" top="20.0" />
-                           </VBox.margin>
-                        </Label>
-                        <TextField fx:id="campoCognome" onAction="#aggiungiCognome">
-                           <VBox.margin>
-                              <Insets left="50.0" top="10.0" />
-                           </VBox.margin>
-                        </TextField>
-                     </children>
-                  </VBox>
-               </children>
-            </HBox>
-            <VBox fx:id="telefonoSection" BorderPane.alignment="CENTER">
-               <children>
-                  <VBox>
-                     <children>
-                        <Label text="Telefono" />
-                        <HBox prefHeight="42.0" prefWidth="200.0">
+                        <ImageView fitHeight="143.0" fitWidth="113.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../../../images/contatto.jpg" />
+                           </image>
+                           <HBox.margin>
+                              <Insets bottom="20.0" left="42.0" right="20.0" top="55.0" />
+                           </HBox.margin>
+                        </ImageView>
+                        <VBox prefHeight="132.0" prefWidth="236.0">
                            <children>
-                              <Button fx:id="aggiungiTelefono" onAction="#aggiungiTelefono" text="+">
-                                 <HBox.margin>
-                                    <Insets left="10.0" />
-                                 </HBox.margin></Button>
-                              <TextField fx:id="campoTelefono">
-                                 <HBox.margin>
-                                    <Insets left="20.0" />
-                                 </HBox.margin></TextField>
+                              <Label fx:id="nome" text="Nome">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="50.0" right="50.0" top="20.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <TextField fx:id="campoNome" onAction="#aggiungiNome">
+                                 <VBox.margin>
+                                    <Insets left="50.0" top="10.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <Label fx:id="cognome" text="Cognome">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="50.0" right="50.0" top="20.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <TextField fx:id="campoCognome" onAction="#aggiungiCognome">
+                                 <VBox.margin>
+                                    <Insets left="50.0" top="10.0" />
+                                 </VBox.margin>
+                              </TextField>
                            </children>
-                        </HBox>
-                     </children>
-                  </VBox>
-               </children>
-               <VBox.margin>
-                  <Insets top="70.0" />
-               </VBox.margin>
-            </VBox>
-            <VBox fx:id="emailSection" prefHeight="52.0" prefWidth="474.0">
-               <children>
-                  <Label text="Indirizzo Email" />
-                  <HBox prefHeight="0.0" prefWidth="376.0">
-                     <children>
-                        <Button fx:id="aggiungiEmail" onAction="#aggiungiEmail" text="+">
-                           <HBox.margin>
-                              <Insets left="10.0" />
-                           </HBox.margin></Button>
-                        <TextField fx:id="campoEmail" prefHeight="39.0" prefWidth="220.0">
-                           <HBox.margin>
-                              <Insets left="20.0" />
-                           </HBox.margin></TextField>
+                        </VBox>
                      </children>
                   </HBox>
+                  <VBox prefHeight="336.0" prefWidth="459.0">
+                     <children>
+                        <Label text="Numero di Telefono" />
+                        <TextField fx:id="campoTelefono1" onAction="#campoTelefono1">
+                           <VBox.margin>
+                              <Insets right="295.0" top="10.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <TextField fx:id="campoTelefono2" onAction="#campoTelefono2">
+                           <VBox.margin>
+                              <Insets right="295.0" top="10.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <TextField fx:id="campoTelefono3" onAction="#campotelefono3">
+                           <VBox.margin>
+                              <Insets right="295.0" top="10.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <Label text="Indirizzo Email">
+                           <VBox.margin>
+                              <Insets top="15.0" />
+                           </VBox.margin>
+                        </Label>
+                        <TextField fx:id="campoIndirizzoEmail1" onAction="#campoIndirizzoEmail1">
+                           <VBox.margin>
+                              <Insets right="230.0" top="10.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <TextField fx:id="campoIndirizzoEmail2" onAction="#campoIndirizzoEmail2">
+                           <VBox.margin>
+                              <Insets right="230.0" top="10.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <TextField fx:id="campoIndirizzoEmail3" onAction="#campoIndirizzoEmail3">
+                           <VBox.margin>
+                              <Insets right="230.0" top="10.0" />
+                           </VBox.margin>
+                        </TextField>
+                     </children>
+                     <VBox.margin>
+                        <Insets left="5.0" />
+                     </VBox.margin>
+                  </VBox>
                </children>
             </VBox>
+
+            <!-- Bottoni 'Conferma', 'Modifica', 'Elimina' sulla stessa riga -->
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="459.0" spacing="10.0">
+               <children>
+                  <Button fx:id="confermaButton" mnemonicParsing="false" onAction="#conferma" text="Conferma" textFill="#10c656">
+                     <HBox.margin>
+                        <Insets left="-166.0" />
+                     </HBox.margin></Button>
+                  <Button fx:id="modificaContatto" mnemonicParsing="false" onAction="#modificaContatto" text="Modifica" />
+                  <Button fx:id="eliminaContatto" mnemonicParsing="false" onAction="#eliminaContatto" text="Elimina" textFill="#ee0707" />
+               </children>
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin>
+            </HBox>
+
+            <!-- Bottone 'Indietro' in basso a destra -->
+            <HBox alignment="BOTTOM_RIGHT" prefHeight="60.0" prefWidth="459.0">
+               <children>
+                  <Button fx:id="indietroButton" mnemonicParsing="false" onAction="#indietroButton" text="Indietro">
+                     <HBox.margin>
+                        <Insets bottom="6.0" right="11.0" />
+                     </HBox.margin></Button>
+               </children>
+            </HBox>
          </children>
       </VBox>
    </right>
