@@ -328,6 +328,64 @@ public class RubricaController implements Initializable {
     System.out.println("Modifica annullata. Torno alla schermata principale.");
 }
 
+
+    //Metodo che gestisce l'eliminazione dei contatti
+    @FXML
+    private void eliminaContatto(ActionEvent event) {
+    //Ottieni il contatto selezionato
+    Contatto contattoSelezionato = listaContatti.getSelectionModel().getSelectedItem();
+
+    if (contattoSelezionato != null) {
+        //Chiedi conferma all'utente tramite un pop-up
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Conferma Eliminazione");
+        alert.setHeaderText("Sei sicuro di voler eliminare questo contatto?");
+        alert.setContentText("Questa azione è irreversibile.");
+
+        //Attendi la risposta dell'utente
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            //Rimuovi il contatto dalla rubrica
+            rubrica.eliminaContatto(contattoSelezionato);
+
+            //Aggiorna la lista dei contatti
+            listaContatti.setItems(rubrica.getContatti());
+
+            //Nascondi la VBox di destra
+            rightVBox.setVisible(false);
+
+            //Mostra messaggio di successo
+            Alert successo = new Alert(Alert.AlertType.INFORMATION);
+            successo.setTitle("Eliminazione Completata");
+            successo.setHeaderText(null);
+            successo.setContentText("Il contatto è stato eliminato con successo.");
+            successo.showAndWait();
+
+            System.out.println("Contatto eliminato con successo.");
+          } else {
+            //Se l'utente annulla l'operazione, torna alla schermata principale
+            System.out.println("Operazione di eliminazione annullata. Torna alla schermata principale.");
+
+            //Nascondi la rightVBox
+            rightVBox.setVisible(false);
+
+            //Mostra solo la lista dei contatti
+            listaContatti.setVisible(true);
+
+            //Mostra messaggio di annullamento
+            Alert annullamento = new Alert(Alert.AlertType.INFORMATION);
+            annullamento.setTitle("Operazione Annullata");
+            annullamento.setHeaderText(null);
+            annullamento.setContentText("Eliminazione del contatto annullata.");
+            annullamento.showAndWait();
+          }
+           } else {
+            mostraErrore("Nessun contatto selezionato per l'eliminazione.");
+           }
+}
+
+  
+
   
   
     @FXML
