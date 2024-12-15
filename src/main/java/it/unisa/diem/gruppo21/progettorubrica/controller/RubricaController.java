@@ -137,51 +137,7 @@ public class RubricaController implements Initializable {
     });
 
     }
-
-    // Metodo che si attiva quando l'utente clicca sul bottone "+" per i numeri di telefono
-    @FXML
-    public void aggiungiTelefono(ActionEvent event) {
-           if (phoneCount < 3) {
-            phoneCount++;
-
-            // Crea una nuova riga per il telefono
-            HBox newPhoneRow = new HBox();
-            newPhoneRow.setSpacing(10);
-
-            // Crea un nuovo campo di testo per il numero di telefono
-            TextField newPhoneField = new TextField();
-            newPhoneField.setPrefWidth(165.0);
-            newPhoneField.setPromptText("Inserisci numero di telefono");
-
-            // Aggiungi il campo alla riga
-            newPhoneRow.getChildren().add(newPhoneField);
-
-            // Aggiungi la riga alla sezione del telefono
-            telefonoSection.getChildren().add(newPhoneRow);
-    }
-    }        
-
-    // Metodo che si attiva quando l'utente clicca sul bottone "+" per gli indirizzi email
-    @FXML
-    public void aggiungiEmail(ActionEvent event) {
-        if (emailCount < 3) {
-            emailCount++;
-
-            // Crea una nuova riga per l'email
-            HBox newEmailRow = new HBox();
-            newEmailRow.setSpacing(10);
-
-            // Crea un nuovo campo di testo per l'indirizzo email
-            TextField newEmailField = new TextField();
-            newEmailField.setPromptText("Inserisci indirizzo email");
-
-            // Aggiungi il campo alla riga
-            newEmailRow.getChildren().add(newEmailField);
-
-            // Aggiungi la riga alla sezione dell'email
-            emailSection.getChildren().add(newEmailRow);
-        }
-    }
+  
 
     @FXML
     private void importa(ActionEvent event) {
