@@ -15,7 +15,7 @@ import java.io.IOException;
 public class App extends Application {
 
     private Scene scene; // Variabile di istanza per la scena
-    private Controller controller; // Variabile di istanza per il controller
+    private RubricaController controller; // Variabile di istanza per il controller
 
     
     @Override
