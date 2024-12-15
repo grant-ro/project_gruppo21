@@ -46,19 +46,19 @@ import javafx.stage.Stage;
 
 public class RubricaController implements Initializable {
 
-   @FXML
-    private VBox telefonoSection; // Sezione per i numeri di telefono
+  
+    private Rubrica rubrica = new Rubrica(); //rubrica è l'oggetto che gestisce i contatti
+    private OperatoreFile operatoreFile = new OperatoreFile();  //l'oggetto che gestisce le operazioni sui file
+    
+    private VBox telefonoSection; //Sezione per i numeri di telefono
 
-    @FXML
-    private VBox emailSection; // Sezione per gli indirizzi email
+    private VBox emailSection; //Sezione per gli indirizzi email
 
-    private int phoneCount = 1; // Contatore per i numeri di telefono
-    private int emailCount = 1; // Contatore per gli indirizzi email
+    private int phoneCount = 1; //Contatore per i numeri di telefono
+    private int emailCount = 1; //Contatore per gli indirizzi email
 
-    @FXML
-    private Button aggiungiTelefono; // Bottone per aggiungere telefono
-    @FXML
-    private Button aggiungiEmail; // Bottone per aggiungere email
+    private Button aggiungiTelefono; //Bottone per aggiungere telefono
+    private Button aggiungiEmail; //Bottone per aggiungere email
     @FXML
     private MenuButton menu;
     @FXML
@@ -74,7 +74,7 @@ public class RubricaController implements Initializable {
     @FXML
     private TextField ricerca;
     @FXML
-    private ListView<?> listaContatti;
+    private ListView<Contatto> listaContatti;
     @FXML
     private Label nome;
     @FXML
@@ -83,12 +83,29 @@ public class RubricaController implements Initializable {
     private Label cognome;
     @FXML
     private TextField campoCognome;
-    @FXML
     private TextField campoTelefono;
-    @FXML
     private TextField campoEmail;
     @FXML
     private VBox rightVBox;
+    @FXML
+    private Button confermaButton;
+    private Contatto contattoSelezionato; //Dichiarazione della variabile
+    @FXML
+    private Button indietroButton;
+    @FXML
+    private TextField campoTelefono1;
+    @FXML
+    private TextField campoTelefono2;
+    @FXML
+    private TextField campoTelefono3;
+    @FXML
+    private TextField campoIndirizzoEmail1;
+    @FXML
+    private TextField campoIndirizzoEmail2;
+    @FXML
+    private TextField campoIndirizzoEmail3;
+
+ 
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
