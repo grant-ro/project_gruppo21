@@ -25,7 +25,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
-import java.util.Scanner;
+
 
 /**
  * @file OperatoreFile.java
@@ -48,11 +48,13 @@ public class OperatoreFile {
  * @pre Il file di importazione deve essere accessibile.
  * @pre Il nome del file contiene un'estensione corretta: .csv  
  * 
- * @post I contatti dal file CSV sono aggiunti alla rubrica esistente.
- * @return true se tutti contatti sono stati inseriti con successo, altrimenti false.
- * @throws IOException se si verifica un errore durante l’importazione.
+ * @post I contatti dal file CSV sono aggiunti alla rubrica esistente
+ *       Tali contatti sono inseriti in maniera tale da rispettare il criterio di ordine alfabetico (da A a Z) per cognome e nome.
+ * @return La rubrica esistente ed aggiornata con i contatti importati. 
+ * 
+ * @throws IOException se il file specificato non è preesistente localmente.
+ * @throws IOException se il file non è accessibile.
  */
-
     public Rubrica leggi(String nomeFile) throws IOException {
         
     Rubrica rubrica = new Rubrica();
