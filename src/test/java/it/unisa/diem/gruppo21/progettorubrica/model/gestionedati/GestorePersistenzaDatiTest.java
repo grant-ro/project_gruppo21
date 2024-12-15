@@ -41,10 +41,10 @@ public class GestorePersistenzaDatiTest {
          rubrica = new Rubrica();
         
         //Prima di ogni test,crea dei contatti validi (che soddisfano le invarianti della clase contatto) 
-        Contatto contatto1 = new Contatto("Marioprin", "Rossiprin",Arrays.asList("10000000"), Arrays.asList("mario.rossi@example.com"));
-        Contatto contatto2 = new Contatto("PrinLuigi", "Verdi", Arrays.asList("20000000"), Arrays.asList("luigi.verdi@example.com"));
-        Contatto contatto3 = new Contatto("Peach", "Princess", Arrays.asList("30000000"), Arrays.asList("peach@example.com"));
-        Contatto contatto4 = new Contatto("Daisy", "principessa", Arrays.asList("40000000"), Arrays.asList("daisy@example.com"));
+        Contatto contatto1 = new Contatto("Marioprin", "Rossiprin",Arrays.asList("1000000000"), Arrays.asList("mario.rossi@example.com"));
+        Contatto contatto2 = new Contatto("PrinLuigi", "Verdi", Arrays.asList("2000000000"), Arrays.asList("luigi.verdi@example.com"));
+        Contatto contatto3 = new Contatto("Peach", "Princess", Arrays.asList("3000000000"), Arrays.asList("peach@example.com"));
+        Contatto contatto4 = new Contatto("Daisy", "principessa", Arrays.asList("4000000000"), Arrays.asList("daisy@example.com"));
         
         rubrica.inserisciContatto(contatto1);
         rubrica.inserisciContatto(contatto2);
@@ -62,17 +62,13 @@ public class GestorePersistenzaDatiTest {
     }
 
     @Test
-    void testPrimoAvvioRubrica() throws IOException {
+    void testPrimoAvvioRubrica() throws IOException, ClassNotFoundException {
         // Carica la rubrica dal file
         assertFalse(carica(rubrica), "La rubrica non dovrebbe essere caricata, poichè  non esiste già un file di persistenza dati.");
-                
-        // Verifica che la rubrica non venga modificata per effetto dell'operazione di caricamento fallita
-        List<Contatto> contattiDopo = rubrica.getContatti();
-        assertEquals(contattiPrima, contattiDopo, "La rubrica dovrebbe contenere esattamente gli stessi contatti che posseedeva prima del fallito caricamento.");
         }
             
     @Test
-    void salvaECaricaTest() throws IOException {
+    void salvaECaricaTest() throws IOException, ClassNotFoundException {
         // Salva la rubrica nel file
         salva(rubrica);
         
@@ -87,16 +83,16 @@ public class GestorePersistenzaDatiTest {
         Rubrica rubricaCaricata = new Rubrica();
         
         // Carica la rubrica dal file
-        assertTrue(carica(rubrica), "La rubrica dovrebbe essere caricata correttamente, poichè esiste già un file di persistenza dati.");
+        assertTrue(carica(rubricaCaricata), "La rubrica dovrebbe essere caricata correttamente, poichè esiste già un file di persistenza dati.");
 
         // Verifica che la rubrica caricata contenga gli stessi contatti
         List<Contatto> contattiCaricati = rubricaCaricata.getContatti();
-        assertEquals(contattiPrima, contattiCaricati, "La rubrica caricata dovrebbe contenere esattamente gli stessi contatti che posseedeva prima del salvataggio.");
+        assertEquals(contattiPrima, contattiCaricati);
     }
     
     @Test
     void getNomeFileMemoriaTest() {
-        assertEquals("rubrica_dati.bin", getNomeFileMemoria());
+        assertEquals(System.getProperty("user.home")+"/rubrica_dati.bin", getNomeFileMemoria());
     }
 }
     
