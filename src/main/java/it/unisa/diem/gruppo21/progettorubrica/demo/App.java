@@ -1,6 +1,6 @@
 package it.unisa.diem.gruppo21.progettorubrica.demo;
 
-import it.unisa.diem.gruppo21.progettorubrica.controller.Controller;
+import it.unisa.diem.gruppo21.progettorubrica.controller.RubricaController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
