@@ -115,7 +115,7 @@ public class OperatoreFile {
             for (int i = 5; i < 8; i++) {
                 if (data.length > i) {
                     String email = data[i];
-                    if (!ControlliValidità.controlloIndirizzoEmail(email)) {
+                    if (ControlliValidità.controlloIndirizzoEmail(email)) {
                         indirizziEmail.add(email);
                     }
                 }
