@@ -5,8 +5,22 @@
  */
 package it.unisa.diem.gruppo21.progettorubrica.controller;
 
+import it.unisa.diem.gruppo21.progettorubrica.model.gestionedati.OperatoreFile;
+import it.unisa.diem.gruppo21.progettorubrica.model.gestionedati.GestorePersistenzaDati;
+import it.unisa.diem.gruppo21.progettorubrica.model.gestionerubrica.Contatto;
+import it.unisa.diem.gruppo21.progettorubrica.model.gestionerubrica.ControlliValidità;
+import it.unisa.diem.gruppo21.progettorubrica.model.gestionerubrica.Rubrica;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -16,14 +30,20 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ListCell;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
  *
- * @author Chiara
+ * @author gruppo21
  */
+
 public class RubricaController implements Initializable {
 
    @FXML
