@@ -139,6 +139,68 @@ public class RubricaController implements Initializable {
     }
   
 
+ //Metodo che gestisce se il contatto inserito sia valido
+    private boolean isValidInput() {
+    //Verifica che tutti i campi siano validi prima di aggiungere il contatto
+    String nome = campoNome.getText();
+    String cognome = campoCognome.getText();
+    String telefono = campoTelefono.getText();
+
+    return ControlliValidità.controlloRiempimento(nome, cognome) && ControlliValidità.controlloNumeroTelefonico(telefono);
+    }
+    
+    
+    //Metodo che gestisce l'aggiunta di un contatto nella rubrica
+    @FXML
+    private void aggiungiContatto(ActionEvent event) {
+    //Svuota tutti i campi di default
+    clearFields();
+    
+    //Resetta il contatto selezionato, in modo che venga trattato come un nuovo contatto
+    contattoSelezionato = null;
+
+    //Abilita tutti i campi per l'inserimento dei dettagli del contatto
+    abilitaCampi();
+
+    //La VBox di destra risulta visibile per l'inserimento dei dati
+    rightVBox.setVisible(true);
+    rightVBox.setManaged(true);  //Assicurati che la VBox sia gestita nel layout
+
+    //Disabilita tutti i bottoni fino a quando non termino le modifiche
+    modificaContatto.setDisable(true);
+    confermaButton.setDisable(true);  //Conferma ed Elimina, nella fase di aggiunta del contatto, inizialmente sono disabilitati
+    eliminaContatto.setDisable(true);
+
+    //Deseleziona eventuali contatti nella lista
+    listaContatti.getSelectionModel().clearSelection();
+    
+    //Pulisci la barra di ricerca
+    ricerca.setText(""); //Cancella il testo nel campo di ricerca
+
+    //Mostra nuovamente tutti i contatti nella lista (ripristino lista completa)
+    ObservableList<Contatto> tuttiContatti = rubrica.getContatti();
+    
+    //Ordina la lista prima di renderla visibile nella listaContatti
+    ordinaContatti();
+    
+    //Imposta la lista ordinata nella ListView
+    listaContatti.setItems(tuttiContatti);
+
+    //Aggiornamento della visualizzazione
+    listaContatti.refresh();
+
+    //Il bottone "Conferma" si attiva solo se viene scritto qualcosa nel campi 
+    campoNome.textProperty().addListener((observable, oldValue, newValue) -> abilitaConfermaButton());
+    campoCognome.textProperty().addListener((observable, oldValue, newValue) -> abilitaConfermaButton());
+    campoTelefono1.textProperty().addListener((observable, oldValue, newValue) -> abilitaConfermaButton());
+    campoTelefono2.textProperty().addListener((observable, oldValue, newValue) -> abilitaConfermaButton());
+    campoTelefono3.textProperty().addListener((observable, oldValue, newValue) -> abilitaConfermaButton());
+    campoIndirizzoEmail1.textProperty().addListener((observable, oldValue, newValue) -> abilitaConfermaButton());
+    campoIndirizzoEmail2.textProperty().addListener((observable, oldValue, newValue) -> abilitaConfermaButton());
+    campoIndirizzoEmail3.textProperty().addListener((observable, oldValue, newValue) -> abilitaConfermaButton());
+}
+
+  
     @FXML
     private void importa(ActionEvent event) {
     }
