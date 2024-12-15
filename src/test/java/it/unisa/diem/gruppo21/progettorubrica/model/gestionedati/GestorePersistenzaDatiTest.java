@@ -32,8 +32,8 @@ public class GestorePersistenzaDatiTest {
     @BeforeEach
     void setUp() {
         // Assicura che il file non esista prima di iniziare il test
-        file = new File(getFilePredefinito());
-            if (file.exists()) {
+            file = new File(getNomeFileMemoria());
+            if (file.exists() {
             file.delete(); // Elimina il file se esiste
             }
         
@@ -95,8 +95,8 @@ public class GestorePersistenzaDatiTest {
     }
     
     @Test
-    void getFilePredefinitoTest() {
-        assertEquals("nome file predefiniot<-inserisci qui", getFilePredefinito());
+    void getNomeFileMemoriaTest() {
+        assertEquals("rubrica_dati.bin", getNomeFileMemoria());
     }
 }
     
