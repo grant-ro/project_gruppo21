@@ -1,8 +1,9 @@
-it\unisa\diem\gruppo21\progettorubrica\model\gestionerubrica\ControlliValidità.class
+it\unisa\diem\gruppo21\progettorubrica\main\RubricaMain.class
 it\unisa\diem\gruppo21\progettorubrica\model\gestionerubrica\Contatto.class
-it\unisa\diem\gruppo21\progettorubrica\model\gestionedati\GestorePersistenzaDati.class
+it\unisa\diem\gruppo21\progettorubrica\controller\RubricaController$1.class
 it\unisa\diem\gruppo21\progettorubrica\model\gestionedati\OperatoreFile.class
 it\unisa\diem\gruppo21\progettorubrica\controller\RubricaController.class
-it\unisa\diem\gruppo21\progettorubrica\model\gestionerubrica\Rubrica.class
 it\unisa\diem\gruppo21\progettorubrica\demo\App.class
-it\unisa\diem\gruppo21\progettorubrica\model\gestionerubrica\ControlliNonValidiException.class
+it\unisa\diem\gruppo21\progettorubrica\model\gestionerubrica\ControlliValidità.class
+it\unisa\diem\gruppo21\progettorubrica\model\gestionedati\GestorePersistenzaDati.class
+it\unisa\diem\gruppo21\progettorubrica\model\gestionerubrica\Rubrica.class
