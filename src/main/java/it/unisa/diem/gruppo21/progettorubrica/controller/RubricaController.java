@@ -628,7 +628,150 @@ public class RubricaController implements Initializable {
     alert.setContentText(messaggio);
     alert.showAndWait();
     }
- 
+
+  
+     //Metodo che gestisce i pop-up del bottone Indietro 
+    @FXML
+    private void indietroButton() {
+    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+    alert.setTitle("Conferma Uscita");
+    alert.setHeaderText("Sei sicuro di tornare indietro?");
+    alert.setContentText(" ");
+
+    Optional<ButtonType> result = alert.showAndWait();
+    if (result.isPresent() && result.get() == ButtonType.OK) {
+        //Nascondi la rightVBox per tornare alla schermata principale
+        rightVBox.setVisible(false);
+        rightVBox.setManaged(false);
+
+        //Deseleziona il contatto attualmente selezionato
+        listaContatti.getSelectionModel().clearSelection();
+
+        //Ricarica la lista dei contatti
+        listaContatti.setItems(rubrica.getContatti());
+        listaContatti.refresh();
+
+        //Resetta il contatto selezionato
+        contattoSelezionato = null;
+    }
+}
+
+
+    //Metodo che gestisce il caricamento dei contatti della rubrica all'avvio dell'Interfaccia Utente
+    //Garantisce che all'avvio dell'interfaccia la rubrica contenga i dati salvati in precedenza, se disponibili.
+    public void avviaInterfaccia() {
+    try {
+        //Assicurati che la rubrica sia inizializzata
+        if (rubrica == null) {
+            rubrica = new Rubrica(); //Inizializza la rubrica se è null
+        }
+
+        //Carica i contatti della rubrica dalla memoria
+        boolean caricata = GestorePersistenzaDati.carica(rubrica);
+
+        if (!caricata) {
+            System.out.println("Nessun dato precedente trovato. Rubrica vuota.");
+        } else {
+            
+            //Verifica se la rubrica è vuota dopo il caricamento
+            if (rubrica.getContatti().isEmpty()) {
+                System.out.println("Il file rubrica_dati.bin è vuoto.");
+            } 
+        }
+        
+        listaContatti.setItems(rubrica.getContatti()); 
+        
+    } catch (IOException | ClassNotFoundException e) {
+        System.err.println("Errore durante il caricamento della rubrica: " + e.getMessage());
+    }
+}
+
+
+    //Metodo che gestisce l'importazione della rubrica su un file CSV
+    @FXML
+    public void importa(ActionEvent event) {
+    ordinaContatti();    
+    FileChooser fileChooser = new FileChooser();
+    fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("File CSV", "*.csv"));
+    fileChooser.setTitle("Importa Rubrica");
+
+    //Mostra la finestra di dialogo per la selezione del file
+    File file = fileChooser.showOpenDialog(new Stage());
+
+    //Se l'utente ha selezionato un file
+    if (file != null){
+    try {
+        //Legge i contatti dal file e crea una nuova rubrica
+        Rubrica rubricaDaImportare = operatoreFile.leggi(file.getAbsolutePath());
+
+        //Aggiunge i contatti validi alla rubrica principale
+        for (Contatto contatto : rubricaDaImportare.getContatti()) {
+            rubrica.inserisciContatto(contatto);
+        }
+        ordinaContatti();
+        listaContatti.setItems(FXCollections.observableArrayList(rubrica.getContatti()));
+       
+        //Notifica all'utente il successo dell'importazione
+        System.out.println("Importazione completata con successo.");
+     }catch (IOException e) {
+        //Gestione dell'eccezione in caso di problemi con il file
+        System.err.println("Errore durante la lettura del file: " + e.getMessage());
+     }
+    }
+}
+
+
+    //Metodo per la pulizia di tutti i campi
+    private void clearFields() {
+    campoNome.clear();
+    campoCognome.clear();
+    campoTelefono1.clear();
+    campoTelefono2.clear();
+    campoTelefono3.clear();
+    campoIndirizzoEmail1.clear();
+    campoIndirizzoEmail2.clear();
+    campoIndirizzoEmail3.clear();
+}
+
+
+    //Metodo che disabilita i campi
+    private void disabilitaCampi() {
+    campoNome.setDisable(true);
+    campoCognome.setDisable(true);
+    campoTelefono1.setDisable(true);
+    campoTelefono2.setDisable(true);
+    campoTelefono3.setDisable(true);
+    campoIndirizzoEmail1.setDisable(true);
+    campoIndirizzoEmail2.setDisable(true);
+    campoIndirizzoEmail3.setDisable(true);
+} 
+
+  
+    //Metodo che gestisce i messaggi di Errore
+    private void mostraErrore(String messaggio) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Errore");
+        alert.setHeaderText("Errore");
+        alert.setContentText(messaggio);
+        alert.showAndWait();
+}
+
+
+    @FXML
+    private void campoTelefono1(ActionEvent event) {
+    }
+
+    
+    @FXML
+    private void campoTelefono2(ActionEvent event) {
+    }
+
+    
+    @FXML
+    private void campotelefono3(ActionEvent event) {
+    }
+
+  
     @FXML
     private void campoIndirizzoEmail1(ActionEvent event) {
     }
@@ -643,9 +786,6 @@ public class RubricaController implements Initializable {
     private void campoIndirizzoEmail3(ActionEvent event) {
     }
     
-  
-
-  
   
     @FXML
     private void aggiungiNome(ActionEvent event) {
