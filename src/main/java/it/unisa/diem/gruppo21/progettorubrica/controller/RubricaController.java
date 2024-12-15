@@ -489,6 +489,38 @@ public class RubricaController implements Initializable {
       }
 }
 
+  
+    //Metodo per abilitare/disabilitare il bottone di Conferma
+    private void abilitaConfermaButton() {
+    //Verifica se almeno uno dei campi non è vuoto
+    boolean campiValidi = !campoNome.getText().trim().isEmpty() ||
+                          !campoCognome.getText().trim().isEmpty() ||
+                          !campoTelefono1.getText().trim().isEmpty() ||
+                          !campoTelefono2.getText().trim().isEmpty() ||
+                          !campoTelefono3.getText().trim().isEmpty() ||
+                          !campoIndirizzoEmail1.getText().trim().isEmpty() ||
+                          !campoIndirizzoEmail2.getText().trim().isEmpty() ||
+                          !campoIndirizzoEmail3.getText().trim().isEmpty();
+
+    //Abilita o disabilita Conferma in base alla validità dei campi
+    confermaButton.setDisable(!campiValidi);
+}
+
+
+    //Metodo che gestisce l'aggiunta di un contatto alla ListView, dopo essere stato modificato
+    private void aggiungiNuovoContatto(ActionEvent event) {
+    // Resetta il contatto selezionato, in modo che venga trattato come un nuovo contatto
+    contattoSelezionato = null;
+    
+    // Mostra i campi per inserire un nuovo contatto
+    rightVBox.setVisible(true);
+    rightVBox.setManaged(true);
+    
+    //Svuota i campi di input
+    clearFields();
+}
+
+  
 
   
   
