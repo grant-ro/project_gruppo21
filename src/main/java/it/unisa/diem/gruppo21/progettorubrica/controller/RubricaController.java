@@ -199,6 +199,37 @@ public class RubricaController implements Initializable {
     campoIndirizzoEmail2.textProperty().addListener((observable, oldValue, newValue) -> abilitaConfermaButton());
     campoIndirizzoEmail3.textProperty().addListener((observable, oldValue, newValue) -> abilitaConfermaButton());
 }
+  //Metodo che gestisce l'rdinamento dei contatti per cognome e, a parità di cognome, per nome
+    //(in assenza del cognome, compaiono prima questi contatti, sempre in ordine alfabetico)
+  
+    private void ordinaContatti() {
+    //Ordina la lista dei contatti prima per cognome e poi per nome
+    listaContatti.getItems().sort((contatto1, contatto2) -> {
+        //Prendi il cognome di contatto1, usa il nome se il cognome è vuoto
+        String cognome1 = contatto1.getCognome();
+        if (cognome1 == null || cognome1.isEmpty()) {
+            cognome1 = contatto1.getNome(); // Usa il nome come "cognome"
+        }
+
+        //Prendi il cognome di contatto2, usa il nome se il cognome è vuoto
+        String cognome2 = contatto2.getCognome();
+        if (cognome2 == null || cognome2.isEmpty()) {
+            cognome2 = contatto2.getNome(); // Usa il nome come "cognome"
+        }
+
+        //Confronto per cognome (o nome se il cognome è vuoto)
+        int cognomeCompare = cognome1.compareToIgnoreCase(cognome2);
+        if (cognomeCompare != 0) {
+            return cognomeCompare; // Se i cognomi sono diversi, ritorna il risultato del confronto
+        }
+
+        //Se i cognomi (o i nomi) sono uguali, ordina per nome
+        return contatto1.getNome().compareToIgnoreCase(contatto2.getNome());
+    });
+
+    //Aggiornamento della ListView
+    listaContatti.refresh();
+}
 
   
     @FXML
@@ -209,11 +240,6 @@ public class RubricaController implements Initializable {
     private void esporta(ActionEvent event) {
     }
 
-    @FXML
-    private void aggiungiContatto(ActionEvent event) {
-            // Mostra la VBox di destra
-            rightVBox.setVisible(true);
-    }
 
     @FXML
     private void modificaContatto(ActionEvent event) {
