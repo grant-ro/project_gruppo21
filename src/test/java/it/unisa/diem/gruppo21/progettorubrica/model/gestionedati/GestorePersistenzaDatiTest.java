@@ -33,7 +33,7 @@ public class GestorePersistenzaDatiTest {
     void setUp() {
         // Assicura che il file non esista prima di iniziare il test
             file = new File(getNomeFileMemoria());
-            if (file.exists() {
+            if (file.exists()) {
             file.delete(); // Elimina il file se esiste
             }
         
