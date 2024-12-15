@@ -1,22 +1,28 @@
-import it.unisa.diem.gruppo21.progettorubrica.model.gestionedati.OperatoreFile;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit5TestClass.java to edit this template
+ */
+package it.unisa.diem.gruppo21.progettorubrica.model.gestionedati;
+
 import it.unisa.diem.gruppo21.progettorubrica.model.gestionerubrica.Contatto;
 import it.unisa.diem.gruppo21.progettorubrica.model.gestionerubrica.Rubrica;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Arrays;
-import java.util.List;
-
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ *
+ * @author emanuela
+ */
 public class OperatoreFileTest {
-
+    
     private OperatoreFile operatoreFile;
     private String fileTest = "test_rubrica.csv";
     private Rubrica rubrica;
