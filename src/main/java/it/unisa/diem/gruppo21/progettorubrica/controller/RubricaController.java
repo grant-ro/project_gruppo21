@@ -275,6 +275,58 @@ public class RubricaController implements Initializable {
         rightVBox.setManaged(false);
       }
 }
+//Metodo che gestisce la modifica di un contatto esistente nella lista di contatti
+    @FXML
+    private void modificaContatto(ActionEvent event) {
+    // Ottieni il contatto selezionato dalla lista
+    contattoSelezionato = listaContatti.getSelectionModel().getSelectedItem();
+
+    if (contattoSelezionato != null) {
+        //La rightVBox deve essere visibile
+        rightVBox.setVisible(true);
+        rightVBox.setManaged(true);
+
+        //Vengono popolati i contenuti dei campi di ogni contatto
+        campoNome.setText(contattoSelezionato.getNome() != null ? contattoSelezionato.getNome() : "");
+        campoCognome.setText(contattoSelezionato.getCognome() != null ? contattoSelezionato.getCognome() : "");
+
+        List<String> numeriTelefono = contattoSelezionato.getNumeriTelefono() != null ? contattoSelezionato.getNumeriTelefono() : new ArrayList<>();
+        campoTelefono1.setText(numeriTelefono.size() > 0 ? numeriTelefono.get(0) : "");
+        campoTelefono2.setText(numeriTelefono.size() > 1 ? numeriTelefono.get(1) : "");
+        campoTelefono3.setText(numeriTelefono.size() > 2 ? numeriTelefono.get(2) : "");
+
+        List<String> indirizziEmail = contattoSelezionato.getIndirizziEmail() != null ? contattoSelezionato.getIndirizziEmail() : new ArrayList<>();
+        campoIndirizzoEmail1.setText(indirizziEmail.size() > 0 ? indirizziEmail.get(0) : "");
+        campoIndirizzoEmail2.setText(indirizziEmail.size() > 1 ? indirizziEmail.get(1) : "");
+        campoIndirizzoEmail3.setText(indirizziEmail.size() > 2 ? indirizziEmail.get(2) : "");
+
+        //Abilita tutti i campi per la modifica
+        abilitaCampi();
+
+        //Disabilita i pulsanti Modifica ed Elimina, mentre viene abilitato Conferma
+        modificaContatto.setDisable(true);
+        eliminaContatto.setDisable(true);
+        confermaButton.setDisable(false);
+
+        //Il pulsante Indietro è visibile
+        indietroButton.setVisible(true);
+        indietroButton.setManaged(true);
+
+       } else {
+        //Mostra un messaggio di errore se nessun contatto è stato selezionato
+        mostraErrore("Nessun contatto selezionato per la modifica.");
+       }
+}
+   
+    
+    //Metodo che gestisce l'annullamento delle modifiche effettuate ad un contatto
+    private void annullaModifica(ActionEvent event) {
+    //Nascondi la rightVBox e torna alla schermata principale
+    indietroButton();
+
+    //Quando annullo la modifica, ritorno alla visualizzazione iniziale
+    System.out.println("Modifica annullata. Torno alla schermata principale.");
+}
 
   
   
