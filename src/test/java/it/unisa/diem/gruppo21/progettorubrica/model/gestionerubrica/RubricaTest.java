@@ -336,7 +336,7 @@ public class RubricaTest {
                 }
             }
             @Test
-            void testPrimoAvvioRubrica() throws IOException {
+            void testPrimoAvvioRubrica() throws IOException, ClassNotFoundException {
                 // Carica la rubrica dal file
                 assertFalse(rubrica.caricaRubrica(), "La rubrica non dovrebbe essere caricata, poichè  non esiste già un file di persistenza dati.");
                 
@@ -348,7 +348,7 @@ public class RubricaTest {
             
             
             @Test
-            void testSalvaECaricaRubrica() throws IOException {
+            void testSalvaECaricaRubrica() throws IOException, ClassNotFoundException {
                 // Salva la rubrica nel file
                 rubrica.salvaRubrica();
         
