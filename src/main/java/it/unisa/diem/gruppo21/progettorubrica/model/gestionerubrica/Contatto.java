@@ -51,6 +51,17 @@ public class Contatto implements Comparable <Contatto> {
     private static final int MAX_EMAIL=3; ///< Numero massimo di indirizzi email consentiti per contatto
 
     /**
+     * @brief Costruttore senza parametri della classe 'Contatto'.
+     * Questo costruttore viene utilizzato quando è necessario creare un oggetto di tipo Contatto ma senza specificare alcun valore iniziale.
+     * 
+     * @post Viene creato un oggetto di tipo Contatto, i cui attributi sono ancora non inizializzati.
+     * 
+    */
+    public Contatto(){
+        
+    }
+
+    /**
      * @brief Costruttore della classe `Contatto`.
      * Inizializza un'istanza della classe Contatto con i parametri forniti.
      * 
