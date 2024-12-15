@@ -156,7 +156,7 @@ public class Rubrica {
      *
      *@throws IllegalArgumentException se 'input' è null. 
      */
-    public Rubrica ricercaContatti(String input) {
+     public Rubrica ricercaContatti(String input) {
         if (input == null) {
             throw new IllegalArgumentException("La stringa di ricerca non può essere null.");
         }
@@ -175,7 +175,7 @@ public class Rubrica {
             }
         }
         return rubricaRisultati;
-    }   
+     }   
 
     /**
     * @brief Carica la rubrica in un file di persistenza predefinito.
@@ -246,10 +246,10 @@ public class Rubrica {
      * @post  Il file CSV creato contiene la rubrica aggiornata.
      *
      * @throws IOException se si verifica un errore durante l’esportazione.
-     *
+     */
     public void esportaRubrica(String nomeFile) throws IOException {
          new OperatoreFile().scrivi(nomeFile,this);
-    }*/
+    }
 
     /**
     *@brief Fornisce una descrizione del contatto
