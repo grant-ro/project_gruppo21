@@ -76,7 +76,7 @@ public class OperatoreFileTest {
         Contatto contatto2 = new Contatto("Giulia", "Bianchi", Arrays.asList("0987654321"), Arrays.asList("giulia@example.com"));
         // Contatto 3
         Contatto contatto3 = new Contatto("Luca", "Verdi", Arrays.asList("5555555550"), Arrays.asList("luca@example.com"));
-        
+        System.out.println(rubricaImportata);
         assertTrue(rubricaImportata.getContatti().contains(contatto1));
         assertTrue(rubricaImportata.getContatti().contains(contatto2));
         assertTrue(rubricaImportata.getContatti().contains(contatto3));
