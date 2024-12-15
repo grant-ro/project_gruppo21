@@ -33,6 +33,11 @@ import java.util.Scanner;
  */
 public class OperatoreFile {
 
+        
+    public OperatoreFile(){
+    
+    }
+        
  /**
  * @brief Importa in rubrica contatti da un file locale.
  * 
@@ -47,10 +52,6 @@ public class OperatoreFile {
  * @return true se tutti contatti sono stati inseriti con successo, altrimenti false.
  * @throws IOException se si verifica un errore durante l’importazione.
  */
-
-    public OperatoreFile(){
-    
-    }
 
     public Rubrica leggi(String nomeFile) throws IOException {
         
