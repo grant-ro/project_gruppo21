@@ -236,8 +236,47 @@ public class RubricaController implements Initializable {
     //Riordina i contatti e aggiorna la lista
     ordinaContatti();
     listaContatti.setItems(FXCollections.observableArrayList(rubrica.getContatti()));
-}    
+}   
 
+  
+    //Metodo che gestisce la visualizzazione dei dettagli di un contatto selezione
+    private void mostraDettagliContatto(Contatto contatto) {
+    if (contatto != null) {
+        //La rightVBox deve essere visibile
+        rightVBox.setVisible(true);
+        rightVBox.setManaged(true);
+
+        //Popola i campi Nome e Cognome del contatto
+        campoNome.setText(contatto.getNome() != null ? contatto.getNome() : "");
+        campoCognome.setText(contatto.getCognome() != null ? contatto.getCognome() : "");
+
+        // Popola i Numeri di telefono
+        List<String> numeriTelefono = contatto.getNumeriTelefono() != null ? contatto.getNumeriTelefono() : new ArrayList<>();
+        campoTelefono1.setText(numeriTelefono.size() > 0 ? numeriTelefono.get(0) : "");
+        campoTelefono2.setText(numeriTelefono.size() > 1 ? numeriTelefono.get(1) : "");
+        campoTelefono3.setText(numeriTelefono.size() > 2 ? numeriTelefono.get(2) : "");
+
+        //Popola gli Indirizzi Email
+        List<String> indirizziEmail = contatto.getIndirizziEmail() != null ? contatto.getIndirizziEmail() : new ArrayList<>();
+        campoIndirizzoEmail1.setText(indirizziEmail.size() > 0 ? indirizziEmail.get(0) : "");
+        campoIndirizzoEmail2.setText(indirizziEmail.size() > 1 ? indirizziEmail.get(1) : "");
+        campoIndirizzoEmail3.setText(indirizziEmail.size() > 2 ? indirizziEmail.get(2) : "");
+
+        //Disabilita tutti i campi
+        disabilitaCampi();
+
+        //Abilita i pulsanti di modifica ed eliminazione
+        modificaContatto.setDisable(false);
+        eliminaContatto.setDisable(false);
+        confermaButton.setDisable(true); // Nascondi il pulsante 'Conferma'
+      } else {
+        //Nascondi la rightVBox se deselezioniamo il contatto
+        rightVBox.setVisible(false);
+        rightVBox.setManaged(false);
+      }
+}
+
+  
   
     @FXML
     private void aggiungiNome(ActionEvent event) {
