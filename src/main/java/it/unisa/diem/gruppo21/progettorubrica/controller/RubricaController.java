@@ -519,7 +519,130 @@ public class RubricaController implements Initializable {
     //Svuota i campi di input
     clearFields();
 }
+  
+    //Metodo che gestisce la ricerca di un contatto nella ListView
+    @FXML
+    private void ricerca(ActionEvent event) {
+    String inputRicerca = ricerca.getText().toLowerCase();  //Acquisisci l'input di ricerca in minuscolo
+    
+    if (inputRicerca.isEmpty()) {
+        //Se l'input di ricerca è vuoto, mostra tutti i contatti
+        listaContatti.setItems(rubrica.getContatti());
+    } else {
+        //Filtra i contatti sulla base di nome, cognome, telefono o email
+        FilteredList<Contatto> risultatiRicerca = rubrica.getContatti().filtered(contatto -> {
+            //Rendi la ricerca case-sensitive, e cerca in più campi
+            boolean nomeMatch = contatto.getNome().toLowerCase().startsWith(inputRicerca);
+            boolean cognomeMatch = contatto.getCognome().toLowerCase().startsWith(inputRicerca);
+            boolean telefonoMatch = contatto.getNumeriTelefono().stream()
+                                              .anyMatch(telefono -> telefono.toLowerCase().startsWith(inputRicerca));
+            boolean emailMatch = contatto.getIndirizziEmail().stream()
+                                          .anyMatch(email -> email.toLowerCase().startsWith(inputRicerca));
+            //Restituisci true se uno dei campi corrisponde
+            return nomeMatch || cognomeMatch || telefonoMatch || emailMatch;
+        });
 
+        //Aggiorna la ListView con i risultati filtrati
+        listaContatti.setItems(risultatiRicerca);
+    }
+}
+//Metodo che gestisce il salvataggio dei contatti della rubrica alla chiusura dell'Interfaccia Utente
+    //Garantisce che alla chiusura dell'interfaccia la rubrica memorizzi i dati presenti in quell'istante, se disponibili.
+    public void chiudiInterfaccia() {
+    try {
+        // Verifica se la variabile rubrica è null e inizializzala se necessario
+        if (rubrica == null) {
+            rubrica = new Rubrica(); // Crea una nuova rubrica se non è già stata inizializzata
+            System.out.println("Rubrica inizializzata.");
+        }
+
+        // Salvataggio della rubrica tramite GestorePersistenzaDati
+        GestorePersistenzaDati.salva(rubrica);
+        //System.out.println("Rubrica salvata con successo in locale");
+
+    } catch (IOException e) {
+        // Gestione degli errori durante il salvataggio
+        System.err.println("Errore durante il salvataggio della rubrica: " + e.getMessage());
+        e.printStackTrace(); // Aggiungi un trace per avere più informazioni sull'errore
+
+    } catch (Exception e) {
+        // Gestione di qualsiasi altra eccezione non prevista
+        System.err.println("Errore imprevisto durante il salvataggio: " + e.getMessage());
+        e.printStackTrace(); // Aggiungi un trace per avere più informazioni sull'errore
+    }
+}
+
+   //Metodo che gestisce l'esportazione della rubrica da un file CSV
+    @FXML
+    public void esporta(ActionEvent event) {
+    ordinaContatti();    
+    FileChooser fileChooser = new FileChooser();
+    fileChooser.setTitle("Salva Rubrica");
+    fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("File CSV", "*.csv"));
+
+    //Configurazione del fileChooser
+    fileChooser.setTitle("Esporta Rubrica");
+    fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("File CSV", "*.csv"));
+
+    //Apri la finestra di dialogo per la selezione del file
+    File file = fileChooser.showSaveDialog(new Stage());
+       
+    if (file != null) {  
+        try {
+            //Usa il metodo scrivi per esportare i dati della rubrica
+            operatoreFile.scrivi(file.getAbsolutePath(), rubrica);
+            System.out.println("Esportazione completata: " + file.getAbsolutePath());
+
+            //Mostra finestra di successo
+            mostraMessaggio("Successo", "Rubrica esportata con successo.");
+        } catch (IOException e) {
+            System.err.println("Errore durante l'esportazione del file: " + e.getMessage());
+            e.printStackTrace();
+            
+            // Mostra finestra di errore se c'è stato un problema
+            mostraErrore("Errore durante l'esportazione del file.");
+        }
+    } else { 
+        System.out.println("Nessun file selezionato.");
+    }
+}
+    
+  
+    //Metodo per l'abilitazione di tutti i campi
+    private void abilitaCampi() {
+    campoNome.setDisable(false);
+    campoCognome.setDisable(false);
+    campoTelefono1.setDisable(false);
+    campoTelefono2.setDisable(false);
+    campoTelefono3.setDisable(false);
+    campoIndirizzoEmail1.setDisable(false);
+    campoIndirizzoEmail2.setDisable(false);
+    campoIndirizzoEmail3.setDisable(false);
+}
+  
+    //Metodo che gestisce i messaggi di ogni tipo
+    private void mostraMessaggio(String titolo, String messaggio) {
+    Alert alert = new Alert(AlertType.INFORMATION);
+    alert.setTitle(titolo);
+    alert.setHeaderText(null);
+    alert.setContentText(messaggio);
+    alert.showAndWait();
+    }
+ 
+    @FXML
+    private void campoIndirizzoEmail1(ActionEvent event) {
+    }
+
+    
+    @FXML
+    private void campoIndirizzoEmail2(ActionEvent event) {
+    }
+
+    
+    @FXML
+    private void campoIndirizzoEmail3(ActionEvent event) {
+    }
+    
   
 
   
