@@ -26,7 +26,7 @@ public class GestorePersistenzaDati {
     private static final String nomeFileMemoria = "rubrica_dati.bin";
     
     public static String getNomeFileMemoria(){
-        return nomeFileMemoria;
+        return System.getProperty("user.home") + "/" + nomeFileMemoria;
     }
     
 /**
