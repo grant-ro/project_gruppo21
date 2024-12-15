@@ -109,8 +109,33 @@ public class RubricaController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-            // Nascondi inizialmente la VBox di destra
-            rightVBox.setVisible(false);
+    //inizialmente la VBox di destra è nascosta
+    rightVBox.setVisible(false);
+            
+    //Aggiungi un listener alla ListView per rilevare la selezione di un contatto
+    listaContatti.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+        if (newSelection != null) {
+            mostraDettagliContatto(newSelection);
+        }
+        
+    importa.setOnAction(event -> importa(event)); //Collega manualmente l'azione al metodo importa
+    esporta.setOnAction(event -> esporta(event)); //Collega manualmente l'azione al metodo esporta
+    });
+
+
+    listaContatti.setCellFactory(param -> new ListCell<Contatto>() {
+      @Override
+      protected void updateItem(Contatto contatto, boolean empty) {
+         super.updateItem(contatto, empty);
+         if (empty || contatto == null) {
+            setText(null); //Non mostrare nulla se il contatto è vuoto
+         } else {
+            //Mostra prima il cognome e poi il nome
+            setText(contatto.getCognome() + " " + contatto.getNome());
+         }
+      }
+    });
+
     }
 
     // Metodo che si attiva quando l'utente clicca sul bottone "+" per i numeri di telefono
