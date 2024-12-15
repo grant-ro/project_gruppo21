@@ -86,8 +86,6 @@ public class GestorePersistenzaDati {
         }
         
         
-       // rubrica.getContatti().addAll(contatti);
-        
 
         System.out.println("Rubrica caricata con successo.");
         return true;
