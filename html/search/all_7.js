@@ -1,9 +1,0 @@
-var searchData=
-[
-  ['salva_0',['salva',['../classit_1_1unisa_1_1diem_1_1gruppo21_1_1progettorubrica_1_1model_1_1gestionedati_1_1_gestore_persistenza_dati_a29eb906d32d7338a24aa61891aefe517.html#a29eb906d32d7338a24aa61891aefe517',1,'it::unisa::diem::gruppo21::progettorubrica::model::gestionedati::GestorePersistenzaDati']]],
-  ['scrivi_1',['scrivi',['../classit_1_1unisa_1_1diem_1_1gruppo21_1_1progettorubrica_1_1model_1_1gestionedati_1_1_operatore_file_a710e216046a96624c537789e054ce20b.html#a710e216046a96624c537789e054ce20b',1,'it::unisa::diem::gruppo21::progettorubrica::model::gestionedati::OperatoreFile']]],
-  ['setcognome_2',['setCognome',['../classit_1_1unisa_1_1diem_1_1gruppo21_1_1progettorubrica_1_1model_1_1gestionerubrica_1_1_contatto_aed03726dc6b75eee61a2c4eea50e71cd.html#aed03726dc6b75eee61a2c4eea50e71cd',1,'it::unisa::diem::gruppo21::progettorubrica::model::gestionerubrica::Contatto']]],
-  ['setindirizziemail_3',['setIndirizziEmail',['../classit_1_1unisa_1_1diem_1_1gruppo21_1_1progettorubrica_1_1model_1_1gestionerubrica_1_1_contatto_ae147ddb23fa478afbf39767e657f1da1.html#ae147ddb23fa478afbf39767e657f1da1',1,'it::unisa::diem::gruppo21::progettorubrica::model::gestionerubrica::Contatto']]],
-  ['setnome_4',['setNome',['../classit_1_1unisa_1_1diem_1_1gruppo21_1_1progettorubrica_1_1model_1_1gestionerubrica_1_1_contatto_a4ae6d8bcdcab4c0e635515bfa9c708e2.html#a4ae6d8bcdcab4c0e635515bfa9c708e2',1,'it::unisa::diem::gruppo21::progettorubrica::model::gestionerubrica::Contatto']]],
-  ['setnumeritelefono_5',['setNumeriTelefono',['../classit_1_1unisa_1_1diem_1_1gruppo21_1_1progettorubrica_1_1model_1_1gestionerubrica_1_1_contatto_a26af8052fa26710dbdc3f9a750ccfe6b.html#a26af8052fa26710dbdc3f9a750ccfe6b',1,'it::unisa::diem::gruppo21::progettorubrica::model::gestionerubrica::Contatto']]]
-];
