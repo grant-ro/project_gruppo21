@@ -322,7 +322,7 @@ public class RubricaTest {
             @BeforeEach
             void setUp() {
                 // Assicura che il file di persistenza non esista prima di iniziare il test
-                file = new File(getFilePredefinito());
+                file = new File(getNomeFileMemoria());
                 if (file.exists()) {
                     file.delete(); // Elimina il file se esiste
                 }
