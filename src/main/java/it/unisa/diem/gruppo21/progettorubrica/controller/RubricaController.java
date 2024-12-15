@@ -199,6 +199,7 @@ public class RubricaController implements Initializable {
     campoIndirizzoEmail2.textProperty().addListener((observable, oldValue, newValue) -> abilitaConfermaButton());
     campoIndirizzoEmail3.textProperty().addListener((observable, oldValue, newValue) -> abilitaConfermaButton());
 }
+  
   //Metodo che gestisce l'rdinamento dei contatti per cognome e, a parità di cognome, per nome
     //(in assenza del cognome, compaiono prima questi contatti, sempre in ordine alfabetico)
   
@@ -230,29 +231,14 @@ public class RubricaController implements Initializable {
     //Aggiornamento della ListView
     listaContatti.refresh();
 }
+  //Metodo che gestisce l'aggiornamento della lista di contatti
+    private void aggiornaListaContatti() {
+    //Riordina i contatti e aggiorna la lista
+    ordinaContatti();
+    listaContatti.setItems(FXCollections.observableArrayList(rubrica.getContatti()));
+}    
 
   
-    @FXML
-    private void importa(ActionEvent event) {
-    }
-
-    @FXML
-    private void esporta(ActionEvent event) {
-    }
-
-
-    @FXML
-    private void modificaContatto(ActionEvent event) {
-    }
-
-    @FXML
-    private void eliminaContatto(ActionEvent event) {
-    }
-
-    @FXML
-    private void ricerca(ActionEvent event) {
-    }
-
     @FXML
     private void aggiungiNome(ActionEvent event) {
     }
