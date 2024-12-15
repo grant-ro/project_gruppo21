@@ -59,38 +59,19 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>2.7.0</version>
+                <configuration>
+                    <mainClass>it.unisa.diem.gruppo21.progettorubrica.demo.App</mainClass> <!-- Classe principale -->
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal> <!-- Goal per includere il manifest e creare il jar eseguibile -->
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
-            
-    <plugin>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-        <version>2.7.0</version>
-        <executions>
-            <execution>
-                <goals>
-                    <goal>repackage</goal> <!-- Aggiungi il goal di repackage per includere il manifest -->
-                </goals>
-            </execution>
-        </executions>
-    </plugin>
-    
-        <plugin>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-maven-plugin</artifactId>
-            <version>2.7.0</version>
-            <configuration>
-                <mainClass>it.unisa.diem.gruppo21.progettorubrica.demo.App</mainClass> <!-- Specifica la tua classe principale -->
-            </configuration>
-            <executions>
-                <execution>
-                    <goals>
-                        <goal>repackage</goal>
-                    </goals>
-                </execution>
-            </executions>
-        </plugin>
-    
-</plugins>
+
+        </plugins>
     </build>
 
     <profiles>
